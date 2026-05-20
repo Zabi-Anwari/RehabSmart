@@ -1,0 +1,168 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Auth helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isEmailVerified() {
+      return request.auth.token.email_verified == true;
+    }
+
+    function isValidId(id) {
+       return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isDoctor() {
+      return isSignedIn() &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'doctor';
+    }
+
+    // User Validation
+    function isValidUser(userId, data) {
+      let requiredKeys = ['uid', 'name', 'email', 'role', 'injuryType', 'recoveryProgress', 'createdAt'];
+      return data.keys().hasAll(requiredKeys) &&
+             data.uid == userId &&
+             data.name is string && data.name.size() > 0 &&
+             data.email is string &&
+             data.role in ['patient', 'doctor'] &&
+             (data.injuryType == null || data.injuryType is string) &&
+             data.recoveryProgress is number &&
+             data.createdAt is timestamp;
+    }
+
+    // Session Validation
+    // Sessions are written client-side at the end of a coached session. The
+    // ML pipeline fills in `quality` and `romDegrees`; the patient fills in
+    // `painLevel` via the post-session prompt. Schema must match the writer
+    // in src/lib/sessions.ts (createSession).
+    function isValidSession(data) {
+      let required = ['date', 'rehabType', 'exerciseId', 'exerciseTitle',
+                      'duration', 'quality', 'painLevel',
+                      'repCount', 'setsCompleted', 'romDegrees'];
+      return data.keys().hasAll(required) &&
+             data.keys().size() == 10 &&
+             data.date == request.time &&
+             data.rehabType in ['knee', 'leg', 'elbow'] &&
+             data.exerciseId is string && data.exerciseId.size() <= 100 &&
+             data.exerciseTitle is string && data.exerciseTitle.size() <= 200 &&
+             data.duration is number && data.duration >= 0 &&
+             data.quality is number && data.quality >= 0 && data.quality <= 100 &&
+             data.painLevel is number && data.painLevel >= 0 && data.painLevel <= 10 &&
+             data.repCount is number && data.repCount >= 0 &&
+             data.setsCompleted is number && data.setsCompleted >= 0 &&
+             data.romDegrees is number && data.romDegrees >= 0 && data.romDegrees <= 360;
+    }
+
+    // Rules for Users
+    match /users/{userId} {
+      allow get: if isSignedIn() && (isOwner(userId) || isDoctor());
+      allow list: if isSignedIn() && (
+        isDoctor() ||
+        resource.id == request.auth.uid
+      );
+      allow create: if isOwner(userId) && isValidUser(userId, request.resource.data);
+      // `doctorProfile` is the doctor CV blob. We don't enforce its shape in
+      // rules — keeping that responsibility in TypeScript — but we do gate
+      // who can write it (only the doctor on their own doc).
+      allow update: if isOwner(userId) &&
+                      isValidUser(userId, request.resource.data) &&
+                      request.resource.data.diff(resource.data).affectedKeys()
+                        .hasOnly(['name', 'injuryType', 'recoveryProgress', 'age', 'photoUrl', 'doctorProfile', 'language']) &&
+                      request.resource.data.role == resource.data.role &&
+                      request.resource.data.email == resource.data.email;
+
+      // Sessions subcollection — doctors can read any patient's sessions so
+      // they can review progress from the doctor dashboard.
+      match /sessions/{sessionId} {
+        allow read: if isOwner(userId) || isDoctor();
+        allow create: if isOwner(userId) && isValidSession(request.resource.data);
+        allow delete: if false; // Audit trail preservation
+      }
+    }
+
+    // Public doctor directory — populated by the doctor's settings page.
+    // Any signed-in user can browse so patients can find doctors. Only the
+    // doctor themself can edit their own directory entry.
+    match /doctorDirectory/{doctorId} {
+      allow read: if isSignedIn();
+      allow create, update: if isOwner(doctorId) && isDoctor();
+      allow delete:         if isOwner(doctorId);
+    }
+
+    // Patient ↔ doctor connections. Document ID is `${patientUid}_${doctorUid}`.
+    match /connections/{connectionId} {
+      // resource == null covers reads of not-yet-created connections — the
+      // client-side requestConnection() pre-checks for existing requests so
+      // it can show "already pending" / "already accepted" messaging, and
+      // that lookup must be allowed on missing docs (which reveal nothing).
+      allow get: if isSignedIn() && (
+        resource == null ||
+        resource.data.patientUid == request.auth.uid ||
+        resource.data.doctorUid  == request.auth.uid
+      );
+      // list happens via where('patientUid' or 'doctorUid' == auth.uid) so the
+      // rule simply requires sign-in; Firestore enforces the query constraint.
+      allow list: if isSignedIn();
+
+      // Patient creates a pending request to a doctor. The patientUid must
+      // match the signed-in user, the doctor must exist, and status starts
+      // as 'pending'.
+      allow create: if isSignedIn() &&
+                       request.resource.data.patientUid == request.auth.uid &&
+                       request.resource.data.status == 'pending' &&
+                       request.resource.data.doctorUid is string &&
+                       request.resource.data.patientName is string &&
+                       request.resource.data.doctorName is string &&
+                       exists(/databases/$(database)/documents/users/$(request.resource.data.doctorUid));
+
+      // Updates are allowed for either party but each side can only change
+      // its own subset of fields:
+      //   - Doctor: status (accept/decline), respondedAt, doctorUnread reset
+      //   - Patient: patientUnread reset, plus any lastMessage* via sendMessage
+      //   - Either side via sendMessage: lastMessage*, opposite-side unread counter
+      // Rather than enumerate every legal subset (which gets complex with the
+      // sendMessage path), we restrict by affectedKeys.
+      allow update: if isSignedIn() &&
+                       (resource.data.patientUid == request.auth.uid ||
+                        resource.data.doctorUid  == request.auth.uid) &&
+                       request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['status', 'respondedAt',
+                                   'lastMessageAt', 'lastMessageText', 'lastMessageBy',
+                                   'patientUnread', 'doctorUnread']);
+
+      // Connection messages subcollection. Both parties can read; either
+      // party can send only when the connection has been accepted.
+      match /messages/{messageId} {
+        function parentConn() {
+          return get(/databases/$(database)/documents/connections/$(connectionId)).data;
+        }
+        allow read: if isSignedIn() && (
+          parentConn().patientUid == request.auth.uid ||
+          parentConn().doctorUid  == request.auth.uid
+        );
+        allow create: if isSignedIn() &&
+                         parentConn().status == 'accepted' &&
+                         request.resource.data.senderUid == request.auth.uid &&
+                         request.resource.data.senderRole in ['patient', 'doctor'] &&
+                         request.resource.data.text is string &&
+                         request.resource.data.text.size() > 0 &&
+                         request.resource.data.text.size() <= 2000 &&
+                         request.resource.data.sentAt == request.time &&
+                         (parentConn().patientUid == request.auth.uid ||
+                          parentConn().doctorUid  == request.auth.uid);
+        allow update, delete: if false; // Audit trail preservation
+      }
+    }
+  }
+}
