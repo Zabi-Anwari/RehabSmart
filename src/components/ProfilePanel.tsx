@@ -94,7 +94,7 @@ export function ProfilePanel({ open, onClose }: ProfilePanelProps) {
       await updateDoc(doc(db, 'users', user.uid), {
         name: name.trim(),
         age: age === '' ? null : Number(age),
-        injuryType,
+        ...(profile?.role !== 'doctor' && { injuryType }),
       });
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
@@ -233,24 +233,26 @@ export function ProfilePanel({ open, onClose }: ProfilePanelProps) {
                   />
                 </div>
 
-                {/* Rehabilitation Focus */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Rehabilitation Focus</label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {INJURY_OPTIONS.map(opt => (
-                      <button
-                        key={opt.value}
-                        type="button"
-                        onClick={() => setInjuryType(opt.value)}
-                        className={`py-2.5 rounded-xl border-2 text-xs font-bold transition-all ${
-                          injuryType === opt.value ? opt.active : `bg-white ${opt.color}`
-                        }`}
-                      >
-                        {opt.label}
-                      </button>
-                    ))}
+                {/* Rehabilitation Focus — patients only */}
+                {profile?.role !== 'doctor' && (
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Rehabilitation Focus</label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {INJURY_OPTIONS.map(opt => (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => setInjuryType(opt.value)}
+                          className={`py-2.5 rounded-xl border-2 text-xs font-bold transition-all ${
+                            injuryType === opt.value ? opt.active : `bg-white ${opt.color}`
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Error */}
                 <AnimatePresence>
