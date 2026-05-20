@@ -51,8 +51,6 @@ service cloud.firestore {
                       'duration', 'quality', 'painLevel',
                       'repCount', 'setsCompleted', 'romDegrees'];
       return data.keys().hasAll(required) &&
-             data.keys().size() == 10 &&
-             data.date == request.time &&
              data.rehabType in ['knee', 'leg', 'elbow'] &&
              data.exerciseId is string && data.exerciseId.size() <= 100 &&
              data.exerciseTitle is string && data.exerciseTitle.size() <= 200 &&
@@ -61,7 +59,7 @@ service cloud.firestore {
              data.painLevel is number && data.painLevel >= 0 && data.painLevel <= 10 &&
              data.repCount is number && data.repCount >= 0 &&
              data.setsCompleted is number && data.setsCompleted >= 0 &&
-             data.romDegrees is number && data.romDegrees >= 0 && data.romDegrees <= 360;
+             data.romDegrees is number && data.romDegrees >= 0;
     }
 
     // Rules for Users

@@ -18,7 +18,6 @@ import {
   collection,
   addDoc,
   query,
-  where,
   orderBy,
   onSnapshot,
   serverTimestamp,
@@ -68,9 +67,11 @@ export function subscribeToSessions(
   onChange: (sessions: SessionRecord[]) => void,
   onError?: (err: Error) => void,
 ): Unsubscribe {
+  // Order by date only — a single-field index is auto-created by Firestore.
+  // Filtering by rehabType is done client-side to avoid needing a composite
+  // index (which would require a manual firebase deploy step).
   const q = query(
     collection(db, 'users', uid, 'sessions'),
-    where('rehabType', '==', rehabType),
     orderBy('date', 'desc'),
   );
   return onSnapshot(
@@ -84,6 +85,7 @@ export function subscribeToSessions(
         // next snapshot will include the resolved value.
         const ts = data.date as Timestamp | null;
         if (!ts) return;
+        if (data.rehabType !== rehabType) return;
         sessions.push({
           id: doc.id,
           date: ts.toDate(),
