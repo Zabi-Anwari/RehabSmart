@@ -1,0 +1,42 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "injuryType": { "type": "string" },
+        "recoveryProgress": { "type": "number" },
+        "role": { "type": "string", "enum": ["patient", "doctor"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "name", "email", "role", "createdAt"]
+    },
+    "Session": {
+      "title": "Rehab Session",
+      "description": "A single rehabilitation exercise session",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string", "format": "date-time" },
+        "exerciseId": { "type": "string" },
+        "quality": { "type": "number" },
+        "painLevel": { "type": "number" },
+        "duration": { "type": "number" }
+      },
+      "required": ["date", "exerciseId", "quality", "painLevel", "duration"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Main user documents"
+    },
+    "/users/{userId}/sessions/{sessionId}": {
+      "schema": "Session",
+      "description": "Historical exercise sessions for the user"
+    }
+  }
+}

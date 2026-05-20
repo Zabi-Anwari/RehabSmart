@@ -1,0 +1,8 @@
+{
+  "name": "RehabSmart",
+  "description": "Professional smart rehabilitation platform for recovery tracking, movement analysis, and doctor-patient collaboration.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": []
+}

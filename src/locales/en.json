@@ -1,0 +1,915 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "next": "Next",
+    "loading": "Loading…",
+    "error": "Error",
+    "success": "Saved",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "all": "All",
+    "search": "Search",
+    "filter": "Filter",
+    "edit": "Edit",
+    "delete": "Delete",
+    "submit": "Submit",
+    "saving": "Saving…",
+    "saved": "Saved!",
+    "skip": "Skip",
+    "ok": "OK",
+    "min": "min",
+    "sec": "sec",
+    "minutes": "minutes",
+    "seconds": "seconds",
+    "hours": "hours",
+    "days": "days",
+    "weeks": "weeks",
+    "ageYears": "{{age}} yrs",
+    "of": "of",
+    "showing": "Showing {{count}} of {{total}}",
+    "noResults": "No results found",
+    "tryAgain": "Try again",
+    "comingSoon": "Coming soon",
+    "optional": "optional",
+    "required": "required",
+    "language": "Language",
+    "selectLanguage": "Select language"
+  },
+  "assistant": {
+    "title": "Rehab Assistant",
+    "open": "Open AI Assistant",
+    "welcome": "Hi! I'm your rehab assistant",
+    "description": "Ask me about exercises, recovery, pain management, or rehabilitation tips.",
+    "disclaimer": "Always consult your doctor for medical concerns.",
+    "placeholder": "Ask a question...",
+    "errorResponse": "Sorry, I encountered an error. Please try again."
+  },
+  "rehab": {
+    "knee": "Knee Rehab",
+    "leg": "Leg Rehab",
+    "elbow": "Elbow Rehab",
+    "kneeShort": "Knee",
+    "legShort": "Leg",
+    "elbowShort": "Elbow"
+  },
+  "injuries": {
+    "Hand": "Hand",
+    "Wrist": "Wrist",
+    "Elbow": "Elbow",
+    "Knee": "Knee",
+    "Leg": "Leg",
+    "Walking": "Walking"
+  },
+  "difficulty": {
+    "Beginner": "Beginner",
+    "Intermediate": "Intermediate",
+    "Advanced": "Advanced"
+  },
+  "phases": {
+    "phaseShort": "Phase {{n}}",
+    "of4": "of 4",
+    "current": "Current",
+    "completed": "Completed"
+  },
+  "days": {
+    "mon": "MON", "tue": "TUE", "wed": "WED", "thu": "THU",
+    "fri": "FRI", "sat": "SAT", "sun": "SUN", "rest": "Rest"
+  },
+  "landing": {
+    "nav": {
+      "features": "Features",
+      "howItWorks": "How it works",
+      "patientPortal": "Patient Portal"
+    },
+    "hero": {
+      "badge": "AI-Powered Recovery",
+      "headlinePart1": "The Smart Way to",
+      "headlinePart2": "Recover Faster.",
+      "description": "Professional-grade rehabilitation tracking that bridges the gap between patient and therapist with real-time motion analysis and detailed analytics.",
+      "ctaPrimary": "Start Rehabilitation",
+      "ctaSecondary": "Medical Dashboard",
+      "socialProof": "Trusted by 2,000+ Patients"
+    },
+    "areas": { "title": "Supported Rehabilitation Areas" },
+    "features": {
+      "headline": "The Modern Standard for Recovery",
+      "description": "Built with the latest healthtech innovation to provide a clinical experience in the comfort of your home.",
+      "1": { "title": "Personalized Programs", "desc": "Adaptive exercise plans tailored to your specific injury and recovery pace." },
+      "2": { "title": "Motion Tracking",       "desc": "Real-time movement analysis using advanced camera-based pose estimation." },
+      "3": { "title": "Progress Monitoring",   "desc": "Visual data trends for range of motion, quality, and pain management." },
+      "4": { "title": "Doctor Supervision",    "desc": "Direct connection with your therapist for remote review and adjustments." },
+      "5": { "title": "Sensor Integration",    "desc": "Future-ready support for wearable IMU sensors and high-fidelity tracking." },
+      "6": { "title": "Medical Reports",       "desc": "Clinically accurate recovery summaries generated automatically for doctors." }
+    },
+    "howitworks": {
+      "headline": "4 Simple Steps to Recovery",
+      "description": "We simplify the complex medical journey into clear, actionable steps.",
+      "1": { "title": "Choose Injury",   "desc": "Select your affected area and current pain levels." },
+      "2": { "title": "Get Plan",        "desc": "Receive a clinically-verified exercise program." },
+      "3": { "title": "Begin Tracking",  "desc": "Perform exercises with AI-guided supervision." },
+      "4": { "title": "Track Progress",  "desc": "View detailed metrics and recovery trends." }
+    },
+    "footer": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "support": "Contact Support",
+      "copyright": "© 2024 REHABSMART PLATFORM. MEDICAL GRADE v1.0.4"
+    }
+  },
+  "auth": {
+    "login": { "title": "Welcome back", "subtitle": "Sign in to your RehabSmart account" },
+    "signup": { "title": "Create your account", "subtitle": "Start your recovery journey today" },
+    "tabs": { "signin": "Sign In", "signup": "Create Account" },
+    "form": {
+      "name": "Full Name",
+      "namePlaceholder": "Your Full Name",
+      "role": "Role",
+      "rolePatient": "Patient",
+      "roleDoctor": "Doctor",
+      "injury": "Injury Area",
+      "email": "Email",
+      "emailPlaceholder": "name@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "loading": "Processing…",
+      "signinBtn": "Sign In",
+      "signupBtn": "Create Account"
+    },
+    "divider": "Or continue with",
+    "oauth": { "google": "Continue with Google" },
+    "footer": {
+      "agree": "By signing in, you agree to our",
+      "and": "and",
+      "tos": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "security": "Clinical data is encrypted."
+    },
+    "panel": {
+      "brand": "RehabSmart",
+      "tagline": "Professional Recovery Platform",
+      "feature1": "Real-time recovery progress tracking",
+      "feature2": "HIPAA-compliant encrypted patient data",
+      "feature3": "Coordinated care between patient & doctor",
+      "recovered": "{{percent}}% Recovered",
+      "sessions": "Sessions",
+      "painLevel": "Pain Level"
+    },
+    "errors": {
+      "fillAll": "Please fill out every field.",
+      "weakPassword": "Password must be at least 6 characters.",
+      "tooManyRequests": "Too many attempts. Please try again later.",
+      "invalidEmail": "That email address isn't valid.",
+      "userNotFound": "No account found for that email.",
+      "wrongPassword": "Incorrect password.",
+      "emailInUse": "An account with this email already exists.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "layout": {
+    "sidebar": {
+      "activeProgram": "Active Program",
+      "brand": "RehabSmart"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "exercises": "Exercises",
+      "progress": "Progress",
+      "plan": "Rehab Plan",
+      "ml": "ML / IMU",
+      "findDoctor": "Find My Doctor",
+      "messages": "Messages",
+      "patients": "Patients",
+      "settings": "Settings",
+      "signOut": "Sign Out"
+    },
+    "topbar": {
+      "findDoctor": "Find My Doctor",
+      "messages": "Messages",
+      "profileTooltip": "My Profile"
+    }
+  },
+  "profile": {
+    "title": "My Profile",
+    "subtitle": "View and update your information",
+    "avatarHint": "Click photo to upload a new one",
+    "name": "Full Name",
+    "namePlaceholder": "Your full name",
+    "email": "Email Address",
+    "emailBadge": "READ ONLY",
+    "age": "Age",
+    "agePlaceholder": "Your age",
+    "injury": "Rehabilitation Focus",
+    "saveBtn": "Save Changes",
+    "savingBtn": "Saving…",
+    "savedBtn": "Saved!",
+    "accountTypePatient": "Patient",
+    "accountTypeDoctor": "Healthcare Provider",
+    "accountHint": "Account type · cannot be changed"
+  },
+  "dashboard": {
+    "greeting": "Welcome back, {{name}}",
+    "startSession": "Start Session",
+    "noFirstSession": {
+      "title": "No sessions logged yet",
+      "description": "Run your first coached session to start tracking ROM, form quality, and recovery progress. Everything on this page will fill in automatically.",
+      "cta": "Run your first session"
+    },
+    "stats": {
+      "recovery": "Recovery",
+      "recoveryTrend": "{{trend}}% this week",
+      "recoveryTarget": "Target ROM {{rom}}° · {{sessions}} sessions",
+      "sessionsDone": "Sessions Done",
+      "sessionsTarget": "Target {{sessions}} sessions",
+      "currentPhase": "Current Phase",
+      "painLevel": "Pain Level",
+      "painLogged": "Logged after each session",
+      "painWellManaged": "Well managed",
+      "painMonitor": "Monitor closely"
+    },
+    "chart": {
+      "title": "Recovery Progress",
+      "subtitle": "Peak range of motion per week",
+      "trend": "{{trend}}° this week",
+      "empty": { "title": "No measurements yet", "description": "Complete a session to plot your first data point." }
+    },
+    "phase": {
+      "focusAreas": "Focus Areas",
+      "viewPlan": "View Full Rehab Plan"
+    },
+    "todayExercises": {
+      "title": "Today's Exercises",
+      "subtitle": "{{count}} exercises scheduled",
+      "viewAll": "View All"
+    },
+    "recentSessions": {
+      "title": "Recent Sessions",
+      "subtitle": "Last {{count}} of {{total}}",
+      "noLog": "Nothing logged yet",
+      "empty": "Sessions will appear here after you complete one.",
+      "progressLink": "Progress",
+      "quality": "quality"
+    },
+    "quickNav": {
+      "exercises": "Exercises",
+      "exercisesDesc": "View all exercises",
+      "progress": "Progress",
+      "progressDesc": "Charts & analytics",
+      "plan": "Rehab Plan",
+      "planDesc": "Full program phases",
+      "ml": "ML / IMU",
+      "mlDesc": "Sensor & AI status"
+    }
+  },
+  "exercises": {
+    "badge": "Exercise Library",
+    "title": "{{module}} — Exercises",
+    "description": "{{count}} exercises across 4 rehabilitation phases. Expand any card to view instructions.",
+    "filter": {
+      "label": "Filter:",
+      "phase": "Phase:",
+      "level": "Level:",
+      "count": "{{count}} shown"
+    },
+    "empty": "No exercises match the current filter.",
+    "instructions": "Instructions",
+    "sets": "Sets",
+    "reps": "Reps",
+    "duration": "Duration",
+    "safety": "Safety",
+    "cardCta": "Start Coached Session",
+    "cardCtaHint": "Opens the camera and guides you through this exercise with live form feedback.",
+    "cta": {
+      "title": "Ready to begin your session?",
+      "description": "Complete your scheduled exercises and log the session for progress tracking.",
+      "button": "Begin Today's Session"
+    },
+    "ml": {
+      "checking": "Checking ML server…",
+      "checkingDesc": "Verifying the {{module}} pipeline is reachable on localhost:8000.",
+      "offlineTitle": "Real-Time ML Analysis — Server Offline",
+      "offlineDesc": "Start the FastAPI server to enable live form feedback during coached sessions. Run {{cmd}} from the project root.",
+      "offlineBadge": "Offline",
+      "onlineTitle": "Real-Time ML Analysis — Live",
+      "onlineDesc": "During a coached session the camera streams to MediaPipe for pose estimation, and the {{module}} model scores form, counts reps, and tracks joint angle in real time.",
+      "onlineBadge": "Connected"
+    }
+  },
+  "progress": {
+    "badge": "Progress Analytics",
+    "title": "{{module}} — Progress",
+    "description": "8-week trend computed from your logged sessions.",
+    "stats": {
+      "romGained": "ROM Gained",
+      "romGainedSub": "Since first session",
+      "quality": "Quality Score",
+      "qualityNoData": "No data",
+      "qualityOverall": "{{gain}}% overall",
+      "pain": "Pain Level",
+      "painLogged": "Logged after each session",
+      "painDecrease": "{{change}} point decrease",
+      "painMonitor": "Monitor closely",
+      "sessions": "Sessions Logged",
+      "sessionsTarget": "Target {{target}}"
+    },
+    "chart": {
+      "title": "Recovery Trends",
+      "subtitle": "Weekly aggregates over the last 8 weeks",
+      "tabs": { "rom": "ROM", "quality": "Quality", "pain": "Pain" },
+      "empty": { "title": "No measurements yet", "description": "Charts populate as you complete sessions." }
+    },
+    "history": {
+      "title": "Session History",
+      "subtitle": "{{count}} session(s) logged",
+      "empty": "You haven't logged any sessions yet. Sessions appear here automatically when you finish a coached session.",
+      "headers": {
+        "date": "Date", "exercise": "Exercise", "quality": "Quality",
+        "pain": "Pain", "rom": "ROM", "duration": "Duration"
+      },
+      "qualityLabel": "quality"
+    }
+  },
+  "plan": {
+    "badge": "Rehabilitation Plan",
+    "title": "{{module}} — Full Program",
+    "description": "16-week evidence-based recovery plan across 4 progressive phases.",
+    "overview": {
+      "title": "Your Active Program",
+      "phases": "Phases",
+      "weeks": "Weeks",
+      "exercises": "Exercises"
+    },
+    "phasesSection": "Program Phases",
+    "phase": {
+      "goal": "Goal",
+      "focusAreas": "Focus Areas",
+      "exercises": "Exercises",
+      "viewExercises": "View Exercises"
+    },
+    "schedule": { "title": "Weekly Schedule — Phase {{phase}}" },
+    "aiPlaceholder": {
+      "title": "AI-Personalised Plan Adaptation — Not Yet Connected",
+      "badge": "Future Feature",
+      "description": "Once enough sessions are logged, the system will automatically suggest tweaks to your plan — phase progression, exercise difficulty, and load adjustments — based on your range of motion, form quality, and pain trends.",
+      "features": {
+        "1": "Adaptive phase progression",
+        "2": "Exercise difficulty tuning",
+        "3": "Pain-responsive load adjustment",
+        "4": "IMU-based form correction"
+      }
+    }
+  },
+  "ml": {
+    "badge": "ML / IMU Integration",
+    "title": "{{module}} — Sensor & AI Status",
+    "description": "Live {{module}} pipeline: camera pose estimation + IMU sensor fusion.",
+    "camera": {
+      "title": "Live Pose Estimation — {{module}}",
+      "subtitle": "MediaPipe PoseLandmarker → skeleton133 features → {{type}} ML model",
+      "inactiveTitle": "Camera Inactive",
+      "inactiveDesc": "Click \"Start Camera\" to begin real-time pose estimation and joint angle tracking.",
+      "loadingTitle": "Loading MediaPipe model…",
+      "loadingSubtitle": "Downloading pose landmarker weights (~10 MB)",
+      "liveBadge": "LIVE",
+      "correctForm": "Correct Form",
+      "checkForm": "Check Form",
+      "startCamera": "Start Camera",
+      "stopCamera": "Stop Camera",
+      "metrics": {
+        "repCount": "Rep Count",
+        "kneeAngle": "Knee angle",
+        "elbowAngle": "Elbow angle",
+        "formScore": "Form score",
+        "correctness": "Correctness"
+      },
+      "classification": "Exercise Classification"
+    },
+    "imu": {
+      "title": "Live IMU Stream — {{module}}",
+      "demo": "Demo Source",
+      "ble": "Pair BLE",
+      "disconnect": "Disconnect",
+      "noDevice": "No device connected",
+      "accel": "Accel |a|",
+      "gyro": "Gyro |ω|",
+      "metrics": {
+        "repCount": "Rep Count",
+        "jointAngle": "Joint Angle",
+        "rom": "Range of Motion",
+        "smoothness": "Smoothness"
+      },
+      "instruction": "Start the demo source to see synthetic motion data, or click Pair BLE to connect a real sensor."
+    },
+    "banner": {
+      "title": "{{module}} ML Pipeline — Connected (Camera + IMU)",
+      "description": "The {{module}} pipeline is now wired between this app and the local FastAPI server. The camera path streams MediaPipe landmarks to the skeleton133 model; the IMU path streams sensor data to the dedicated motion model.",
+      "badge": "Pipeline Ready"
+    }
+  },
+  "session": {
+    "back": "Back to exercises",
+    "badge": "Coached Session",
+    "briefSectionTitle": "Before you start",
+    "howTo": "How to perform",
+    "metrics": { "sets": "Sets", "repsSet": "Reps/Set", "duration": "Duration" },
+    "serverLabel": "AI form-check server",
+    "serverOnline": "Online",
+    "serverOffline": "Offline",
+    "serverRequired": "Server Required",
+    "startSession": "Start Session",
+    "offlineTitle": "AI form-check server is offline",
+    "offlineDesc": "Start the FastAPI server to enable real-time form feedback during this session. Run {{cmd}} from the project root.",
+    "offlineHint": "Once it's running on localhost:8000, refresh this page.",
+    "pain": {
+      "title": "How much pain did you feel?",
+      "description": "Rate the pain you experienced during this session so your progress reflects it accurately.",
+      "label": "Pain Level",
+      "noPain": "No pain",
+      "severe": "Severe",
+      "recap": {
+        "setsDone": "Sets done",
+        "reps": "Reps",
+        "rom": "ROM",
+        "form": "Form"
+      },
+      "saving": "Saving…",
+      "save": "Save Session"
+    },
+    "complete": {
+      "title": "Session saved",
+      "recap": {
+        "setsDone": "Sets done",
+        "reps": "Reps",
+        "duration": "Duration",
+        "rom": "ROM",
+        "form": "Form score"
+      },
+      "restart": "Run again",
+      "done": "Done"
+    },
+    "running": {
+      "label": "Now performing",
+      "set": "Set {{current}} / {{total}}",
+      "stop": "End Session",
+      "reps": "Reps",
+      "kneeAngle": "Knee angle",
+      "elbowAngle": "Elbow angle",
+      "formScore": "Form score",
+      "correctness": "Correctness",
+      "instructionsLabel": "Instructions",
+      "feedbackLabel": "Live coaching",
+      "feedbackEmpty": "Get into the starting position to begin."
+    },
+    "rest": {
+      "complete": "Set {{current}} complete",
+      "label": "Rest",
+      "next": "Next: Set {{next}} of {{total}}",
+      "skip": "Skip rest"
+    },
+    "countdown": {
+      "label": "Get ready",
+      "next": "Set {{next}} starts in…"
+    }
+  },
+  "doctor": {
+    "portal": "Physician Portal",
+    "greeting": "Welcome, {{name}}",
+    "subtitle": "Monitor connected patients, review their progress, and respond to new connection requests.",
+    "profileBtn": "My Profile / CV",
+    "profileIncomplete": {
+      "title": "Your profile isn't published yet",
+      "desc": "Patients can't find you in search until you complete your CV (specialty, work area, bio, years of experience).",
+      "cta": "Complete now"
+    },
+    "stats": {
+      "connected": "Connected Patients",
+      "pending": "Pending Requests",
+      "active": "Active Conversations",
+      "unread": "Unread Messages"
+    },
+    "requests": {
+      "title": "Connection Requests ({{count}})",
+      "requested": "Requested {{date}}",
+      "accept": "Accept",
+      "decline": "Decline"
+    },
+    "patients": {
+      "title": "My Patients",
+      "searchPlaceholder": "Search patients…",
+      "empty": "When you accept a connection request, the patient will appear here.",
+      "emptyFiltered": "Try adjusting the search or filter.",
+      "noneTitle": "No connected patients yet",
+      "headers": {
+        "patient": "Patient",
+        "focus": "Focus",
+        "connected": "Connected",
+        "lastActivity": "Last activity",
+        "unread": "Unread"
+      },
+      "newBadge": "{{count}} new",
+      "openChat": "Open chat",
+      "viewProgress": "View progress"
+    },
+    "caseload": "Caseload by program",
+    "insights": {
+      "title": "Clinical Insights (AI)",
+      "trendLabel": "Caseload trend",
+      "empty": "Insights become available once patients are connected and have logged sessions.",
+      "followingOne": "You're following {{count}} patient. Click any row to see ROM, quality and pain trends.",
+      "followingMany": "You're following {{count}} patients. Click any row to see ROM, quality and pain trends."
+    },
+    "settings": {
+      "back": "Back to Patients",
+      "badge": "Doctor Profile",
+      "title": "My Professional Profile",
+      "subtitle": "Patients see this CV when searching for a doctor. Complete all required fields to appear in search.",
+      "visible": "Visible to patients",
+      "hidden": "Hidden — fill required fields",
+      "specialties": {
+        "title": "Specialties",
+        "subtitle": "Pick every body part you treat — patients filter search by these.",
+        "kneeLabel": "Knee specialist",
+        "kneeDesc": "ACL/MCL recovery, post-op rehab, meniscus repair",
+        "legLabel": "Leg specialist",
+        "legDesc": "Hip, gait, balance, lower-extremity strength",
+        "elbowLabel": "Elbow / Arm specialist",
+        "elbowDesc": "Elbow, wrist, hand, upper-extremity rehab"
+      },
+      "practice": {
+        "title": "Practice Information",
+        "workArea": "Work area / city *",
+        "workAreaPlaceholder": "e.g. Boston, MA",
+        "clinic": "Clinic / hospital",
+        "clinicPlaceholder": "e.g. Mass General Sports Medicine",
+        "years": "Years of experience *",
+        "license": "License # (optional, kept private)",
+        "licensePlaceholder": "Not shown to patients",
+        "bio": "Bio *",
+        "bioHint": "Min 20 characters. Visible on your public profile.",
+        "bioPlaceholder": "A short summary of your background, approach, and what patients can expect…",
+        "bioCounter": "{{count}} / 20 characters minimum"
+      },
+      "cv": {
+        "title": "CV",
+        "subtitle": "Add as many rows as you like — each one shows on your public profile.",
+        "education": "Education",
+        "educationPlaceholder": "MD — Harvard Medical School (2010)",
+        "certifications": "Certifications",
+        "certificationsPlaceholder": "Board Certified in Sports Medicine",
+        "languages": "Languages spoken",
+        "languagesPlaceholder": "English",
+        "add": "Add {{name}}"
+      },
+      "footer": {
+        "requiredHint": "Required fields are marked with *.",
+        "savedAt": "Saved {{time}}",
+        "savingBtn": "Saving…",
+        "saveBtn": "Save Profile"
+      }
+    },
+    "patientDetail": {
+      "back": "Back to patients",
+      "doctorsOnly": "Doctors only.",
+      "loading": "Loading patient details…",
+      "notConnected": "Patient not yet connected",
+      "notConnectedDesc": "Accept the request from your dashboard to view their progress.",
+      "backToDashboard": "Back to dashboard",
+      "rehab": "{{type}} rehab",
+      "connectedSince": "Connected since {{date}}",
+      "messageBtn": "Message",
+      "loadingSessions": "Loading {{module}} sessions…",
+      "noSessionsTitle": "No {{module}} sessions yet",
+      "noSessionsDesc": "This patient hasn't logged any {{module}} sessions. Check another module or send them a message.",
+      "stats": {
+        "sessions": "Sessions",
+        "totalReps": "Total reps",
+        "activeMin": "Active min",
+        "avgQuality": "Avg quality",
+        "avgPain": "Avg pain"
+      },
+      "trendTitle": "Recent trend",
+      "trendSubtitle": "Last {{count}} sessions — ROM, quality, and pain",
+      "legendRom": "ROM (°)",
+      "legendQuality": "Quality (%)",
+      "legendPain": "Pain (/10)",
+      "recentTitle": "Recent sessions",
+      "recentSubtitle": "Newest first",
+      "headers": {
+        "date": "Date", "exercise": "Exercise", "repsSets": "Reps × Sets",
+        "quality": "Quality", "pain": "Pain", "rom": "ROM", "duration": "Duration"
+      }
+    },
+    "publicProfile": {
+      "loading": "Loading doctor profile…",
+      "notFound": "Doctor not found",
+      "notFoundDesc": "This profile may have been removed or is incomplete.",
+      "backToSearch": "Back to search",
+      "specialistTag": "{{module}} specialist",
+      "yearsExp": "{{years}} yr experience",
+      "education": "Education",
+      "certifications": "Certifications",
+      "languages": "Languages",
+      "notListed": "Not listed.",
+      "connection": "Connection",
+      "request": {
+        "info": "Send a short note so the doctor knows what you're working on. They can review your sessions once they accept.",
+        "placeholder": "e.g. I had ACL surgery 6 weeks ago and would love a second opinion on my exercises.",
+        "send": "Send request",
+        "alreadyPending": "You already have a pending request with this doctor.",
+        "alreadyConnected": "You are already connected with this doctor.",
+        "previouslyDeclined": "This doctor has declined a previous request from you.",
+        "generic": "Could not send request. Please try again."
+      },
+      "pending": {
+        "title": "Request sent — awaiting response",
+        "desc": "You'll see a notification here when the doctor accepts."
+      },
+      "connected": {
+        "desc": "You're connected — this doctor can review your progress.",
+        "btn": "Open chat"
+      },
+      "declined": {
+        "title": "This doctor declined your previous request.",
+        "desc": "Consider connecting with another specialist."
+      }
+    }
+  },
+  "findDoctor": {
+    "badge": "Find My Doctor",
+    "title": "Connect with a rehab specialist",
+    "description": "Doctors here can review your sessions and message you with personal guidance once they accept your request.",
+    "searchPlaceholder": "Search by name, city, or clinic…",
+    "loading": "Loading doctors…",
+    "noneTitle": "No doctors found",
+    "noneFiltered": "Try a different search or filter.",
+    "noneEmpty": "No doctors have completed their profile yet.",
+    "patientsOnly": "This page is for patients.",
+    "statusConnected": "Connected",
+    "statusPending": "Request sent",
+    "statusDeclined": "Declined",
+    "yearsExp": "{{years}} yr experience",
+    "viewProfile": "View profile",
+    "drPrefix": "Dr. {{name}}"
+  },
+  "messages": {
+    "badge": "Messages",
+    "titleDoctor": "Conversations with your patients",
+    "titlePatient": "Conversations with your doctors",
+    "subtitleDoctor": "Send guidance, answer questions, and follow up on patient sessions.",
+    "subtitlePatient": "Once a doctor accepts your request, you can chat with them here for advice.",
+    "searchPatients": "Search patients…",
+    "searchDoctors": "Search doctors…",
+    "loading": "Loading conversations…",
+    "emptyTitle": "No conversations yet",
+    "emptyDoctor": "When a patient request is accepted, your chat with them appears here.",
+    "emptyPatient": "Find a doctor and send a connection request to start chatting.",
+    "findDoctor": "Find a doctor",
+    "noPreview": "No messages yet — say hello!",
+    "youPrefix": "You: ",
+    "rehabSuffix": "{{type}} rehab",
+    "yesterday": "Yesterday",
+    "thread": {
+      "back": "All conversations",
+      "viewProgress": "View progress",
+      "noAccess": "You don't have access to this conversation.",
+      "backLink": "Back to Messages",
+      "loading": "Loading conversation…",
+      "introNote": "Patient's intro: \"{{text}}\"",
+      "noMessagesTitle": "No messages yet",
+      "noMessagesDesc": "Send the first one below.",
+      "composerPlaceholder": "Type a message… (Shift+Enter for newline)",
+      "send": "Send",
+      "lockedPending": "Messaging unlocks once the doctor accepts the request.",
+      "lockedClosed": "This connection is closed.",
+      "sendError": "Could not send."
+    }
+  },
+  "phaseContent": {
+    "knee": {
+      "1": { "name": "Acute Recovery", "goal": "Reduce inflammation, restore basic motion, and re-establish quadriceps activation.", "duration": "Weeks 1–4" },
+      "2": { "name": "Strength Building", "goal": "Rebuild quadriceps and hamstring strength, improve weight-bearing tolerance, and progress range of motion.", "duration": "Weeks 5–8" },
+      "3": { "name": "Functional Training", "goal": "Restore symmetrical strength, balance, and prepare the knee for dynamic loading.", "duration": "Weeks 9–12" },
+      "4": { "name": "Return to Activity", "goal": "Return to sport-specific or pre-injury function with confidence and stability.", "duration": "Weeks 13–16+" }
+    },
+    "leg": {
+      "1": { "name": "Mobility & Activation", "goal": "Wake up the hip, gluteal, and calf musculature; restore base ankle and hip range of motion.", "duration": "Weeks 1–4" },
+      "2": { "name": "Stability & Symmetry", "goal": "Improve single-leg control, hip strength, and even loading across both legs.", "duration": "Weeks 5–8" },
+      "3": { "name": "Balance & Endurance", "goal": "Build the balance, gait symmetry, and lower-body endurance for daily activities.", "duration": "Weeks 9–12" },
+      "4": { "name": "Return to Function", "goal": "Restore confident, symmetrical walking and a return to recreational activity.", "duration": "Weeks 13–16+" }
+    },
+    "elbow": {
+      "1": { "name": "Pain & Inflammation", "goal": "Reduce pain, control inflammation, and restore gentle range of motion.", "duration": "Weeks 1–4" },
+      "2": { "name": "Range & Light Strength", "goal": "Restore full pain-free range of motion and begin light strengthening of forearm and grip.", "duration": "Weeks 5–8" },
+      "3": { "name": "Strength & Endurance", "goal": "Progress to heavier loading, full grip strength, and forearm rotational endurance.", "duration": "Weeks 9–12" },
+      "4": { "name": "Return to Activity", "goal": "Return to overhead and racquet activities or full work demands.", "duration": "Weeks 13–16+" }
+    }
+  },
+  "exerciseContent": {
+    "knee-ex-1": {
+      "title": "Quadriceps Sets",
+      "description": "An isometric exercise to activate the quadriceps muscles without stressing the knee joint.",
+      "instructions": [
+        "Sit or lie down with your leg extended.",
+        "Tighten the muscle on the top of your thigh.",
+        "Press the back of your knee gently down toward the floor.",
+        "Hold the contraction for 5 seconds.",
+        "Relax and repeat."
+      ],
+      "safety": "Stop if you feel sharp pain. Focus on gentle isometric activation only."
+    },
+    "knee-ex-2": {
+      "title": "Straight Leg Raises",
+      "description": "Strengthens the quadriceps and hip flexors while keeping the knee in extension.",
+      "instructions": [
+        "Lie on your back with the non-injured knee bent.",
+        "Keep the injured leg straight and tighten the thigh muscle.",
+        "Lift the straight leg to the height of the bent knee.",
+        "Hold for 3 seconds at the top.",
+        "Slowly lower back to the floor."
+      ],
+      "safety": "Keep your core engaged. Do not hold your breath."
+    },
+    "knee-ex-3": {
+      "title": "Heel Slides",
+      "description": "Gentle range-of-motion exercise to restore knee flexion gradually.",
+      "instructions": [
+        "Lie on your back with both legs extended.",
+        "Slowly slide your heel toward your buttocks, bending the knee.",
+        "Slide only as far as is comfortable.",
+        "Hold the bent position for 5 seconds.",
+        "Slide your heel back to the starting position."
+      ],
+      "safety": "Never force the range. Work within a pain-free arc only."
+    },
+    "knee-ex-4": {
+      "title": "Mini Squats",
+      "description": "Functional strengthening exercise to build quadriceps strength in a closed-chain position.",
+      "instructions": [
+        "Stand with feet hip-width apart, holding a sturdy surface.",
+        "Slowly bend your knees as if sitting in a chair.",
+        "Go down only 30–45 degrees (one-quarter squat).",
+        "Hold for 3 seconds at the bottom.",
+        "Slowly stand back up, squeezing the glutes."
+      ],
+      "safety": "Do not let the knee cave inward. Use a mirror for alignment feedback."
+    },
+    "knee-ex-5": {
+      "title": "Terminal Knee Extension (Band)",
+      "description": "Targets the VMO (vastus medialis oblique) for medial knee stability.",
+      "instructions": [
+        "Attach a resistance band to a fixed object and around your knee.",
+        "Stand with the band creating tension behind the knee.",
+        "Lock out the knee by tightening the quadriceps.",
+        "Hold for 3 seconds in full extension.",
+        "Slowly return to slight knee bend."
+      ],
+      "safety": "Avoid hyperextending the knee. Begin with light resistance."
+    },
+    "knee-ex-6": {
+      "title": "Step-Ups",
+      "description": "Advanced functional exercise integrating strength, balance, and coordination.",
+      "instructions": [
+        "Stand in front of a sturdy 6-inch step.",
+        "Step up with the injured leg, keeping the knee aligned over the toe.",
+        "Push through the heel to fully stand on the step.",
+        "Slowly lower the other leg back down.",
+        "Repeat by alternating legs."
+      ],
+      "safety": "Avoid letting the knee buckle inward when stepping up or down."
+    },
+    "leg-ex-1": {
+      "title": "Standing Calf Raises",
+      "description": "Builds calf strength and ankle stability for walking and balance.",
+      "instructions": [
+        "Stand with feet hip-width apart, holding a chair for support.",
+        "Slowly rise up onto the balls of your feet.",
+        "Hold the top position for 2 seconds.",
+        "Lower the heels back to the floor with control."
+      ],
+      "safety": "Keep the movement slow and controlled. Avoid bouncing at the bottom."
+    },
+    "leg-ex-2": {
+      "title": "Clamshells",
+      "description": "Activates the hip abductors and external rotators for pelvic stability.",
+      "instructions": [
+        "Lie on your side with knees bent at 45 degrees.",
+        "Keep feet together as you lift the top knee upward.",
+        "Hold for 2 seconds at the top.",
+        "Slowly lower back to the starting position."
+      ],
+      "safety": "Do not roll the pelvis backward. Keep the top hip stacked over the bottom."
+    },
+    "leg-ex-3": {
+      "title": "Glute Bridges",
+      "description": "Strengthens the gluteus maximus and hamstrings while protecting the lower back.",
+      "instructions": [
+        "Lie on your back with knees bent and feet flat on the floor.",
+        "Squeeze your glutes and lift your hips off the floor.",
+        "Hold for 3 seconds at the top.",
+        "Slowly lower back down."
+      ],
+      "safety": "Keep the pelvis flat. Avoid excessive lumbar extension."
+    },
+    "leg-ex-4": {
+      "title": "Step-Ups (Hip Focus)",
+      "description": "Functional unilateral exercise for hip strength and balance.",
+      "instructions": [
+        "Stand in front of a 6-inch step.",
+        "Step up by driving through the heel and engaging the glutes.",
+        "Briefly stand tall on the step.",
+        "Slowly step back down with control."
+      ],
+      "safety": "Avoid letting the knee drift medially. Engage glutes at the top."
+    },
+    "leg-ex-5": {
+      "title": "Single-Leg Balance",
+      "description": "Improves proprioception, ankle stability, and balance reactions.",
+      "instructions": [
+        "Stand near a wall or chair for safety.",
+        "Lift one foot slightly off the floor.",
+        "Hold the single-leg stance for 30 seconds.",
+        "Switch legs and repeat."
+      ],
+      "safety": "Stay close to a wall. Discontinue immediately if you feel unsafe."
+    },
+    "leg-ex-6": {
+      "title": "Lateral Band Walks",
+      "description": "Targets hip abductors for stability during walking and athletic motion.",
+      "instructions": [
+        "Place a resistance band around your thighs, just above the knees.",
+        "Stand with feet hip-width apart and slight knee bend.",
+        "Step sideways with one foot, then bring the other foot in slightly.",
+        "Continue for the prescribed distance, then switch directions."
+      ],
+      "safety": "Keep the band taut throughout. Do not let the knees collapse inward."
+    },
+    "elbow-ex-1": {
+      "title": "Elbow Flexion & Extension",
+      "description": "Restores basic elbow range of motion in a pain-free arc.",
+      "instructions": [
+        "Sit with the arm supported on a table or your thigh.",
+        "Slowly bend the elbow as far as comfort allows.",
+        "Pause for 2 seconds at end range.",
+        "Slowly straighten the elbow back to neutral."
+      ],
+      "safety": "Work within a pain-free range only. Do not force the end range."
+    },
+    "elbow-ex-2": {
+      "title": "Wrist Curls",
+      "description": "Strengthens the wrist flexors to support elbow function.",
+      "instructions": [
+        "Rest your forearm on a table, palm facing up.",
+        "Hold a light dumbbell in your hand.",
+        "Curl the wrist up as high as possible.",
+        "Slowly lower back to the starting position."
+      ],
+      "safety": "Use very light resistance. Avoid clenching the fist tightly."
+    },
+    "elbow-ex-3": {
+      "title": "Forearm Pronation / Supination",
+      "description": "Restores rotational range of the forearm.",
+      "instructions": [
+        "Hold a light hammer or small dumbbell in your hand.",
+        "Rest the elbow on a table at 90 degrees, knuckles facing up.",
+        "Slowly rotate the palm down (pronate), then up (supinate).",
+        "Move only through a comfortable range."
+      ],
+      "safety": "Slow and controlled. Resistance should be very light."
+    },
+    "elbow-ex-4": {
+      "title": "Bicep Curls (Light)",
+      "description": "Rebuilds bicep strength with a controlled curl.",
+      "instructions": [
+        "Stand with arms by your side, holding a light dumbbell.",
+        "Curl the dumbbell upward, keeping the elbow at your side.",
+        "Pause at the top.",
+        "Slowly lower back down with control."
+      ],
+      "safety": "Keep the upper arm stationary. Don't swing the body."
+    },
+    "elbow-ex-5": {
+      "title": "Tricep Extensions",
+      "description": "Strengthens the triceps for elbow extension.",
+      "instructions": [
+        "Sit or stand and hold a light dumbbell with both hands behind your head.",
+        "Slowly straighten your arms by extending the elbows.",
+        "Pause briefly at full extension.",
+        "Lower back with control."
+      ],
+      "safety": "Avoid locking out the elbows under heavy load. Keep the core engaged."
+    },
+    "elbow-ex-6": {
+      "title": "Eccentric Wrist Extensions",
+      "description": "Targets the wrist extensors with a slow eccentric load — useful for tennis elbow.",
+      "instructions": [
+        "Rest your forearm on a table, palm facing down.",
+        "Use the opposite hand to lift the dumbbell up.",
+        "Slowly lower the dumbbell over 3–5 seconds.",
+        "Repeat for the prescribed reps."
+      ],
+      "safety": "Lower very slowly. Stop if symptoms worsen."
+    }
+  }
+}

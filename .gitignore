@@ -1,0 +1,48 @@
+# ── Dependencies ──────────────────────────────────────────────────────────────
+node_modules/
+
+# ── Build output ──────────────────────────────────────────────────────────────
+build/
+dist/
+coverage/
+
+# ── Environment & secrets ─────────────────────────────────────────────────────
+.env*
+!.env.example
+
+# Firebase config files that contain real API keys
+firebase-applet-config.json
+
+# ── ML training data & model binaries ────────────────────────────────────────
+# Training datasets are ~40 GB — kept locally only, never tracked.
+dataML/
+
+# Trained model files (large binaries — regenerate with train_all.py)
+*.joblib
+*.pkl
+*.h5
+*.pt
+*.pth
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.venv/
+env/
+.env/
+
+# Server-generated test output
+server/test_results.txt
+
+# ── Editor & OS ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+
+# Claude Code local settings (machine-specific permissions, not project config)
+# Note: CLAUDE.md is intentionally tracked — it contains project instructions.
+.claude/
