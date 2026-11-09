@@ -101,16 +101,6 @@ export function LandingPage() {
               {t('landing.hero.ctaSecondary')}
             </Link>
           </div>
-          <div className="flex items-center gap-6">
-            <div className="flex -space-x-3">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
-                  <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 10}`} alt="Patient" referrerPolicy="no-referrer" />
-                </div>
-              ))}
-            </div>
-            <p className="text-sm text-slate-500 font-medium font-mono uppercase tracking-wider">{t('landing.hero.socialProof')}</p>
-          </div>
         </motion.div>
 
         {/* Right — dashboard mockup (fully contained, no overflow) */}
@@ -184,52 +174,61 @@ export function LandingPage() {
 
                 {/* ── Right column ── */}
                 <div className="space-y-3">
-                  {/* AI Link status card */}
-                  <div className="p-3 bg-slate-900 rounded-2xl border border-slate-800">
+                  {/* Live pose analysis card */}
+                  <div className="p-3 bg-emerald-950 rounded-2xl border border-emerald-800">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-1.5">
-                        <div className="w-1.5 h-1.5 rounded-full bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.7)]" />
-                        <span className="text-[9px] font-bold text-white font-mono tracking-tight">AI_LINK_STABLE</span>
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_rgba(52,211,153,0.7)]" />
+                        <span className="text-[9px] font-bold text-emerald-300 font-mono tracking-tight">POSE TRACKING</span>
                       </div>
-                      <Cpu size={11} className="text-blue-400" />
+                      <Camera size={11} className="text-emerald-400" />
                     </div>
-                    {/* Mini visualisation */}
-                    <div className="aspect-video bg-slate-800/80 rounded-xl mb-2 overflow-hidden relative">
-                      <svg className="absolute inset-0 w-full h-full p-3 text-blue-500/40" viewBox="0 0 100 60">
-                        <circle cx="50" cy="30" r="24" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="4 2" />
-                        <path d="M50 6 L50 54 M26 30 L74 30" stroke="currentColor" strokeWidth="0.5" />
-                        <motion.path
-                          animate={{ d: ['M36,18 L50,9 L64,18 L50,27 Z', 'M40,21 L50,12 L60,21 L50,30 Z'] }}
-                          transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse' }}
-                          fill="#3b82f6"
-                          fillOpacity="0.45"
-                        />
+                    {/* Skeleton stick figure */}
+                    <div className="aspect-video bg-slate-900/60 rounded-xl mb-2 overflow-hidden relative flex items-center justify-center">
+                      <svg viewBox="0 0 80 60" className="w-full h-full p-2">
+                        {/* skeleton bones */}
+                        <line x1="40" y1="10" x2="40" y2="26" stroke="#34d399" strokeWidth="1.5" strokeLinecap="round"/>
+                        <line x1="40" y1="14" x2="30" y2="20" stroke="#34d399" strokeWidth="1.5" strokeLinecap="round"/>
+                        <line x1="40" y1="14" x2="50" y2="20" stroke="#34d399" strokeWidth="1.5" strokeLinecap="round"/>
+                        <line x1="30" y1="20" x2="26" y2="28" stroke="#34d399" strokeWidth="1.5" strokeLinecap="round"/>
+                        <line x1="50" y1="20" x2="54" y2="28" stroke="#34d399" strokeWidth="1.5" strokeLinecap="round"/>
+                        <line x1="40" y1="26" x2="36" y2="38" stroke="#34d399" strokeWidth="1.5" strokeLinecap="round"/>
+                        <line x1="40" y1="26" x2="44" y2="38" stroke="#34d399" strokeWidth="1.5" strokeLinecap="round"/>
+                        <line x1="36" y1="38" x2="34" y2="50" stroke="#34d399" strokeWidth="1.5" strokeLinecap="round"/>
+                        <line x1="44" y1="38" x2="46" y2="50" stroke="#34d399" strokeWidth="1.5" strokeLinecap="round"/>
+                        {/* joints */}
+                        <circle cx="40" cy="10" r="2" fill="#34d399"/>
+                        <circle cx="40" cy="26" r="1.5" fill="#34d399"/>
+                        <circle cx="30" cy="20" r="1.5" fill="#34d399"/>
+                        <circle cx="50" cy="20" r="1.5" fill="#34d399"/>
+                        {/* highlighted knee joint */}
+                        <circle cx="36" cy="38" r="2.5" fill="#fbbf24" className="drop-shadow-lg"/>
+                        <circle cx="44" cy="38" r="2.5" fill="#fbbf24" className="drop-shadow-lg"/>
+                        {/* angle arc at knee */}
+                        <path d="M 34,44 A 8,8 0 0,1 42,36" fill="none" stroke="#fbbf24" strokeWidth="0.8" strokeDasharray="2 1"/>
+                        <text x="28" y="46" fontSize="4" fill="#fbbf24" fontFamily="monospace">127°</text>
                       </svg>
-                      <div className="absolute inset-x-0 bottom-0 px-2 py-1 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent">
-                        <div className="flex justify-between text-[7px] font-mono font-bold text-white/70 uppercase">
-                          <span>Sync: 0.12ms</span>
-                          <span>60fps</span>
+                      <div className="absolute inset-x-0 bottom-0 px-2 py-1 bg-gradient-to-t from-slate-900/80 to-transparent">
+                        <div className="flex justify-between text-[7px] font-mono font-bold text-emerald-400/80 uppercase">
+                          <span>MediaPipe · 30fps</span>
+                          <span>26 joints</span>
                         </div>
                       </div>
                     </div>
-                    <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest text-center mb-1">Movement Calibration</p>
-                    <div className="h-1 w-full bg-slate-700 rounded-full overflow-hidden">
-                      <motion.div
-                        className="h-full bg-blue-500 rounded-full"
-                        initial={{ width: '0%' }}
-                        animate={{ width: '92%' }}
-                        transition={{ duration: 2, delay: 0.5 }}
-                      />
+                    {/* Knee angle reading */}
+                    <div className="flex items-center justify-between px-1">
+                      <span className="text-[8px] font-black text-emerald-500 uppercase tracking-widest">Knee Angle</span>
+                      <span className="text-[11px] font-black text-white font-mono">127°</span>
                     </div>
                   </div>
 
-                  {/* Treatment Adherence */}
+                  {/* Session metrics */}
                   <div className="space-y-2">
-                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-1.5">Treatment Adherence</p>
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-1.5">Session Metrics</p>
                     {[
-                      { l: 'Knee Extensions',   p: 95, c: 'bg-blue-500' },
-                      { l: 'Quad Strength.',    p: 78, c: 'bg-cyan-500' },
-                      { l: 'Gait Retraining',   p: 42, c: 'bg-slate-300' },
+                      { l: 'Movement Score', p: 94, c: 'bg-emerald-500' },
+                      { l: 'Range of Motion', p: 81, c: 'bg-blue-500'    },
+                      { l: 'Reps Completed',  p: 70, c: 'bg-indigo-400'  },
                     ].map((item) => (
                       <div key={item.l} className="space-y-1">
                         <div className="flex justify-between items-center">

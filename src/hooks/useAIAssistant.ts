@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const API_KEY = import.meta.env.VITE_GOOGLE_GEMINI_KEY;
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent';
+const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent';
 
 interface GeminiMessage {
   role: 'user' | 'model';
@@ -58,7 +58,10 @@ If asked about something outside rehabilitation, politely redirect to the rehab 
           temperature: 0.7,
           topK: 40,
           topP: 0.95,
-          maxOutputTokens: 500,
+          // Gemini 3.x "thinking" tokens count toward maxOutputTokens; with a small
+          // limit the hidden reasoning used up the budget and replies were cut off.
+          maxOutputTokens: 2048,
+          thinkingConfig: { thinkingLevel: 'minimal' },
         },
       };
 

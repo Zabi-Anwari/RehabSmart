@@ -3,7 +3,7 @@ import { useParams, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   TrendingUp, Activity, BarChart2,
-  CalendarDays, Clock, AlertCircle, CheckCircle2,
+  CalendarDays, Clock, AlertCircle, CheckCircle2, FileText,
 } from 'lucide-react';
 import {
   ResponsiveContainer, AreaChart, Area,
@@ -17,6 +17,7 @@ import { useAuth } from '../../components/AuthContext';
 import { useSessions } from '../../hooks/useSessions';
 import { useRehabMetrics } from '../../hooks/useRehabMetrics';
 import { REHAB_TARGETS } from '../../lib/rehabConfig';
+import { ProgressReport } from '../../components/ProgressReport';
 
 function isValidRehabType(t: string | undefined): t is RehabType {
   return t === 'knee' || t === 'leg' || t === 'elbow';
@@ -26,9 +27,10 @@ type ChartTab = 'rom' | 'quality' | 'pain';
 
 export function RehabProgress() {
   const { type } = useParams<{ type: string }>();
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<ChartTab>('rom');
+  const [showReport, setShowReport] = useState(false);
 
   const TAB_META: Record<ChartTab, { label: string; unit: string; tooltipLabel: string }> = {
     rom:     { label: t('progress.chart.tabs.rom'),     unit: '°',   tooltipLabel: t('progress.stats.romGained')    },
@@ -67,16 +69,42 @@ export function RehabProgress() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-        <div className={cn('inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-2', colors.badge)}>
-          <BarChart2 size={12} />
-          {t('progress.badge')}
+      <motion.div
+        initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
+        className="flex items-start justify-between gap-4 flex-wrap"
+      >
+        <div>
+          <div className={cn('inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-2', colors.badge)}>
+            <BarChart2 size={12} />
+            {t('progress.badge')}
+          </div>
+          <h1 className="text-2xl font-extrabold text-slate-900">{t('progress.title', { module: t(`rehab.${type}`) })}</h1>
+          <p className="text-slate-500 text-sm mt-1">
+            {t('progress.description')}
+          </p>
         </div>
-        <h1 className="text-2xl font-extrabold text-slate-900">{t('progress.title', { module: t(`rehab.${type}`) })}</h1>
-        <p className="text-slate-500 text-sm mt-1">
-          {t('progress.description')}
-        </p>
+        <button
+          onClick={() => setShowReport(true)}
+          disabled={metrics.isEmpty}
+          className={cn(
+            'inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white shadow-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed',
+            colors.primary, colors.primaryHover,
+          )}
+        >
+          <FileText size={16} />
+          {t('progress.report.button')}
+        </button>
       </motion.div>
+
+      {showReport && (
+        <ProgressReport
+          patient={{ name: profile?.name ?? user?.displayName ?? '', age: profile?.age, injuryType: profile?.injuryType }}
+          rehabType={type}
+          sessions={sessions}
+          metrics={metrics}
+          onClose={() => setShowReport(false)}
+        />
+      )}
 
       {/* Summary Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

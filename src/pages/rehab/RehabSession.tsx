@@ -9,7 +9,10 @@ import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../lib/utils';
 import { RehabType } from '../../types';
 import {
-  REHAB_MODULES, getExercisesByType, KNEE_EXERCISE_ID_TO_ML_LABEL,
+  REHAB_MODULES, getExercisesByType,
+  KNEE_EXERCISE_ID_TO_ML_LABEL,
+  LEG_EXERCISE_ID_TO_ML_LABEL,
+  ELBOW_EXERCISE_ID_TO_ML_LABEL,
 } from '../../constants';
 import { useKneePipeline, type SessionStats } from '../../hooks/useKneePipeline';
 import { useAuth } from '../../components/AuthContext';
@@ -101,12 +104,12 @@ function CoachedSession({ exercise, mod, rehabType, onExit }: CoachedSessionProp
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
 
-  // Only knee exercises map cleanly to skeleton133 ML labels today; for leg
-  // and elbow we leave targetMlLabel null so the hook just skips the
-  // "matches target" comparison. Form scoring still runs.
-  const targetMlLabel = rehabType === 'knee'
-    ? (KNEE_EXERCISE_ID_TO_ML_LABEL[exercise.id] ?? null)
-    : null;
+  const ML_LABEL_MAP = {
+    knee:  KNEE_EXERCISE_ID_TO_ML_LABEL,
+    leg:   LEG_EXERCISE_ID_TO_ML_LABEL,
+    elbow: ELBOW_EXERCISE_ID_TO_ML_LABEL,
+  };
+  const targetMlLabel = ML_LABEL_MAP[rehabType][exercise.id] ?? null;
   const targetReps = typeof exercise.reps === 'number' ? exercise.reps : null;
 
   const {
@@ -575,12 +578,19 @@ function CoachedSession({ exercise, mod, rehabType, onExit }: CoachedSessionProp
                   {t('ml.camera.liveBadge')}
                 </div>
               )}
-              {/* The "Matching target exercise" badge has been hidden until
-                  the KNEE_ML_LABEL_TO_EXERCISE_ID mapping is fixed —
-                  the underlying check compares model labels (REHAB24-6's
-                  arm/squat/lunge labels) against our clinical knee exercise
-                  IDs, which can never agree. See the warning comment in
-                  src/constants.ts above KNEE_ML_LABEL_TO_EXERCISE_ID. */}
+              {status === 'running' && targetMlLabel && prediction?.skeleton?.exercise_type && (
+                <div className={cn(
+                  'absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold shadow',
+                  prediction.skeleton.exercise_type === targetMlLabel
+                    ? 'bg-emerald-500 text-white'
+                    : 'bg-amber-500 text-white',
+                )}>
+                  {prediction.skeleton.exercise_type === targetMlLabel
+                    ? <><CheckCircle2 size={10} className="flex-shrink-0" /> {t('session.running.exerciseDetected')}</>
+                    : <><AlertCircle size={10} className="flex-shrink-0" /> {t('session.running.checkMovement')}</>
+                  }
+                </div>
+              )}
               {!initializing && status !== 'running' && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 z-10">
                   <Camera size={36} className="text-slate-700" />

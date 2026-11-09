@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, setPersistence, browserSessionPersistence } from 'firebase/auth';
+import { getAuth, setPersistence, browserLocalPersistence } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
@@ -17,7 +17,7 @@ export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
 
-// Session-only auth: the user is signed out when the browser tab/window
-// closes, so relaunching the app always requires logging in again. Refreshes
-// within the same tab still keep the user signed in.
-void setPersistence(auth, browserSessionPersistence);
+// Local persistence: the user stays signed in across page refreshes and new
+// tabs. Previously browserSessionPersistence was used, which signed users out
+// on every page refresh — making session history appear empty after reload.
+void setPersistence(auth, browserLocalPersistence);

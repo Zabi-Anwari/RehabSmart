@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Camera, Save, CheckCircle, AlertCircle, User as UserIcon } from 'lucide-react';
+import { X, Camera, Save, CheckCircle, AlertCircle, User as UserIcon, LogOut } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
@@ -12,16 +13,20 @@ interface ProfilePanelProps {
 }
 
 const INJURY_OPTIONS: { value: InjuryType; label: string; color: string; active: string }[] = [
-  { value: 'Hand',    label: 'Hand',    color: 'border-slate-200 text-slate-500 hover:border-slate-300', active: 'bg-purple-50 border-purple-300 text-purple-700 shadow-sm' },
-  { value: 'Wrist',   label: 'Wrist',   color: 'border-slate-200 text-slate-500 hover:border-slate-300', active: 'bg-pink-50 border-pink-300 text-pink-700 shadow-sm' },
-  { value: 'Elbow',   label: 'Elbow',   color: 'border-slate-200 text-slate-500 hover:border-slate-300', active: 'bg-orange-50 border-orange-300 text-orange-700 shadow-sm' },
-  { value: 'Knee',    label: 'Knee',    color: 'border-slate-200 text-slate-500 hover:border-slate-300', active: 'bg-blue-50 border-blue-300 text-blue-700 shadow-sm' },
-  { value: 'Leg',     label: 'Leg',     color: 'border-slate-200 text-slate-500 hover:border-slate-300', active: 'bg-green-50 border-green-300 text-green-700 shadow-sm' },
-  { value: 'Walking', label: 'Walking', color: 'border-slate-200 text-slate-500 hover:border-slate-300', active: 'bg-teal-50 border-teal-300 text-teal-700 shadow-sm' },
+  { value: 'Elbow', label: 'Elbow', color: 'border-slate-200 text-slate-500 hover:border-slate-300', active: 'bg-orange-50 border-orange-300 text-orange-700 shadow-sm' },
+  { value: 'Knee',  label: 'Knee',  color: 'border-slate-200 text-slate-500 hover:border-slate-300', active: 'bg-blue-50 border-blue-300 text-blue-700 shadow-sm' },
+  { value: 'Leg',   label: 'Leg',   color: 'border-slate-200 text-slate-500 hover:border-slate-300', active: 'bg-green-50 border-green-300 text-green-700 shadow-sm' },
 ];
 
 export function ProfilePanel({ open, onClose }: ProfilePanelProps) {
-  const { profile, user } = useAuth();
+  const { profile, user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    onClose();
+    await signOut();
+    navigate('/');
+  };
 
   const [name, setName] = useState('');
   const [age, setAge] = useState<number | ''>('');
@@ -299,7 +304,7 @@ export function ProfilePanel({ open, onClose }: ProfilePanelProps) {
               </form>
 
               {/* Account type badge */}
-              <div className="px-6 pb-8">
+              <div className="px-6 pb-4">
                 <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100">
                   <div className="w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center shrink-0">
                     <UserIcon size={17} className="text-blue-600" />
@@ -318,6 +323,17 @@ export function ProfilePanel({ open, onClose }: ProfilePanelProps) {
                     {profile?.role}
                   </span>
                 </div>
+              </div>
+
+              {/* Sign out */}
+              <div className="px-6 pb-8">
+                <button
+                  onClick={handleSignOut}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-red-200 text-sm font-bold text-red-500 hover:bg-red-50 hover:border-red-300 transition-all"
+                >
+                  <LogOut size={16} />
+                  Sign Out
+                </button>
               </div>
             </div>
           </motion.aside>

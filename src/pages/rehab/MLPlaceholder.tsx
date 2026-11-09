@@ -119,7 +119,7 @@ function LiveCameraPanel({ rehabType, cam }: { rehabType: RehabType; cam: Camera
           {prediction?.skeleton && (
             <div className="absolute bottom-3 left-3 right-3 flex gap-2 flex-wrap">
               <div className="px-3 py-1.5 bg-black/70 backdrop-blur rounded-xl text-xs text-white font-mono">
-                Exercise: <span className={cn('font-bold', ring.overlay)}>{prediction.skeleton.exercise_type}</span>
+                Pattern: <span className={cn('font-bold', ring.overlay)}>{prediction.skeleton.exercise_type}</span>
                 <span className="ml-2 text-slate-400">({Math.round(prediction.skeleton.exercise_confidence * 100)}%)</span>
               </div>
               <div className={cn(

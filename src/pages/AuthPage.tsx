@@ -16,12 +16,9 @@ import { useRehab } from '../context/RehabContext';
 import { handleFirestoreError, OperationType } from '../lib/firestoreErrors';
 import { LanguageSwitcher } from '../components/LanguageSwitcher';
 
-// Maps the broader "injury area" picked during signup to one of the three
-// rehab modules the app supports today. Unsupported choices (Hand / Wrist /
-// Walking) fall back to knee — the user can still switch via the sidebar.
 function injuryToRehabType(injury: InjuryType): RehabType {
-  if (injury === 'Leg' || injury === 'Walking') return 'leg';
-  if (injury === 'Elbow' || injury === 'Wrist' || injury === 'Hand') return 'elbow';
+  if (injury === 'Leg') return 'leg';
+  if (injury === 'Elbow') return 'elbow';
   return 'knee';
 }
 
@@ -376,7 +373,7 @@ export function AuthPage() {
                           onChange={(e) => setInjury(e.target.value as InjuryType)}
                           className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207L10%2012L15%207%22%20stroke%3D%22%2364748B%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E')] bg-[length:20px] bg-[right_12px_center] bg-no-repeat transition-all"
                         >
-                          {(['Hand', 'Wrist', 'Elbow', 'Knee', 'Leg', 'Walking'] as InjuryType[]).map(opt => (
+                          {(['Elbow', 'Knee', 'Leg'] as InjuryType[]).map(opt => (
                             <option key={opt} value={opt}>{t(`injuries.${opt}`)}</option>
                           ))}
                         </select>

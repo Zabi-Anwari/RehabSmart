@@ -24,7 +24,7 @@ function isValidRehabType(t: string | undefined): t is RehabType {
 
 function StatCard({ label, value, sub, icon: Icon, colorClass }: {
   label: string; value: string | number; sub?: string;
-  icon: React.ElementType; colorClass: string;
+  icon: React.ComponentType<{ size?: number }>; colorClass: string;
 }) {
   return (
     <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 hover:shadow-md transition-shadow">

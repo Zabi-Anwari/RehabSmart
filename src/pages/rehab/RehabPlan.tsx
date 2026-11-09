@@ -3,23 +3,32 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   ClipboardList, CheckCircle2, Circle, Dumbbell, Target,
-  Calendar, ChevronRight, Lock, Cpu,
+  Calendar, ChevronRight, Lock, Info,
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { cn } from '../../lib/utils';
 import { RehabType } from '../../types';
 import { REHAB_MODULES, REHAB_PHASES, getExercisesByType } from '../../constants';
+import { useAuth } from '../../components/AuthContext';
 
 function isValidRehabType(t: string | undefined): t is RehabType {
   return t === 'knee' || t === 'leg' || t === 'elbow';
 }
 
-const CURRENT_PHASE: 1 | 2 | 3 | 4 = 2;
+// Derive an approximate phase from recoveryProgress (0–100).
+// Phase boundaries: 0–24% → 1, 25–49% → 2, 50–74% → 3, 75–100% → 4.
+function phaseFromProgress(progress: number): 1 | 2 | 3 | 4 {
+  if (progress >= 75) return 4;
+  if (progress >= 50) return 3;
+  if (progress >= 25) return 2;
+  return 1;
+}
 
 export function RehabPlan() {
   const { type } = useParams<{ type: string }>();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { profile } = useAuth();
 
   if (!isValidRehabType(type)) {
     navigate('/onboarding');
@@ -30,6 +39,7 @@ export function RehabPlan() {
   const { colors } = mod;
   const phases = REHAB_PHASES[type];
   const exercises = getExercisesByType(type);
+  const CURRENT_PHASE = phaseFromProgress(profile?.recoveryProgress ?? 0);
 
   const getExerciseTitle = (id: string) => {
     const fallback = exercises.find(e => e.id === id)?.title ?? id;
@@ -59,6 +69,12 @@ export function RehabPlan() {
           {t('plan.description')}
         </p>
       </motion.div>
+
+      {/* Phase-tracking disclosure */}
+      <div className="flex items-start gap-3 p-4 bg-slate-50 border border-slate-200 rounded-2xl text-sm text-slate-600">
+        <Info size={16} className="flex-shrink-0 mt-0.5 text-slate-400" />
+        <p>Phase progress is estimated from your logged recovery score. Your assigned clinician will confirm and adjust your current phase during review sessions.</p>
+      </div>
 
       {/* Plan overview card */}
       <motion.div
@@ -251,38 +267,6 @@ export function RehabPlan() {
         </div>
       </motion.div>
 
-      {/* ML Plan Personalisation Placeholder */}
-      {/* TODO: Replace with ML-generated adaptive rehab plan recommendations */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.45 }}
-        className="p-6 bg-slate-900 rounded-2xl border border-slate-800"
-      >
-        <div className="flex items-center gap-3 mb-3">
-          <Cpu size={18} className="text-slate-500" />
-          <h3 className="font-bold text-white">{t('plan.aiPlaceholder.title')}</h3>
-          <span className="ml-auto px-2 py-0.5 bg-slate-700 rounded-full text-[10px] font-bold text-slate-400 uppercase">
-            {t('plan.aiPlaceholder.badge')}
-          </span>
-        </div>
-        <p className="text-sm text-slate-400 leading-relaxed mb-4">
-          {t('plan.aiPlaceholder.description')}
-        </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {[
-            t('plan.aiPlaceholder.features.1'),
-            t('plan.aiPlaceholder.features.2'),
-            t('plan.aiPlaceholder.features.3'),
-            t('plan.aiPlaceholder.features.4'),
-          ].map((feature) => (
-            <div key={feature} className="flex items-start gap-2 p-3 bg-slate-800 rounded-xl">
-              <Circle size={8} className="text-slate-600 mt-1 flex-shrink-0" />
-              <p className="text-[11px] text-slate-400 leading-relaxed">{feature}</p>
-            </div>
-          ))}
-        </div>
-      </motion.div>
     </div>
   );
 }

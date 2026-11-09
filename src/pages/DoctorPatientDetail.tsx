@@ -3,7 +3,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   ArrowLeft, MessageCircle, Activity, CalendarDays, TrendingUp,
-  AlertCircle, Clock, BarChart2,
+  AlertCircle, Clock, BarChart2, FileText,
 } from 'lucide-react';
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis,
@@ -13,6 +13,8 @@ import { motion } from 'motion/react';
 import { Card } from '../components/Cards';
 import { useAuth } from '../components/AuthContext';
 import { useSessions } from '../hooks/useSessions';
+import { useRehabMetrics } from '../hooks/useRehabMetrics';
+import { ProgressReport, type ReportPatient } from '../components/ProgressReport';
 import { connectionId, subscribeConnection } from '../lib/connections';
 import { REHAB_MODULES } from '../constants';
 import { cn } from '../lib/utils';
@@ -131,14 +133,20 @@ export function DoctorPatientDetail() {
       </div>
 
       {/* Per-module sections */}
-      <PatientModuleSection patientUid={patientUid} rehabType={activeModule} />
+      <PatientModuleSection
+        patientUid={patientUid}
+        rehabType={activeModule}
+        patient={{ name: connection.patientName, injuryType: connection.patientInjuryType }}
+      />
     </div>
   );
 }
 
-function PatientModuleSection({ patientUid, rehabType }: { patientUid: string; rehabType: RehabType }) {
+function PatientModuleSection({ patientUid, rehabType, patient }: { patientUid: string; rehabType: RehabType; patient: ReportPatient }) {
   const { t } = useTranslation();
   const { sessions, loading } = useSessions(patientUid, rehabType);
+  const metrics = useRehabMetrics(rehabType, sessions);
+  const [showReport, setShowReport] = useState(false);
   const mod = REHAB_MODULES[rehabType];
   const moduleLabel = t(`rehab.${rehabType}`);
 
@@ -186,6 +194,24 @@ function PatientModuleSection({ patientUid, rehabType }: { patientUid: string; r
 
   return (
     <div className="space-y-6">
+      <div className="flex justify-end">
+        <button
+          onClick={() => setShowReport(true)}
+          className={cn('inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-white shadow-sm transition-colors', mod.colors.primary, mod.colors.primaryHover)}
+        >
+          <FileText size={16} /> {t('progress.report.button')}
+        </button>
+      </div>
+      {showReport && (
+        <ProgressReport
+          patient={patient}
+          rehabType={rehabType}
+          sessions={sessions}
+          metrics={metrics}
+          onClose={() => setShowReport(false)}
+        />
+      )}
+
       {/* Stat tiles */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         <Stat label={t('doctor.patientDetail.stats.sessions')}    value={String(sessions.length)}              icon={CalendarDays} accent={mod.colors} />
