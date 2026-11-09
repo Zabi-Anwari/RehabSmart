@@ -298,6 +298,113 @@
     }
   },
   "progress": {
+    "report": {
+      "button": "Generate Report",
+      "print": "Print / Save as PDF",
+      "close": "Close",
+      "brand": "RehabSmart",
+      "title": "Rehabilitation Progress Report",
+      "generatedOn": "Generated on {{date}}",
+      "patient": {
+        "heading": "Patient",
+        "name": "Name",
+        "age": "Age",
+        "injury": "Condition",
+        "module": "Programme",
+        "period": "Reporting period"
+      },
+      "status": {
+        "label": "Overall status",
+        "early": "Early stage",
+        "excellent": "Excellent progress",
+        "good": "Good progress",
+        "steady": "Steady",
+        "attention": "Needs attention"
+      },
+      "summary": {
+        "heading": "Summary",
+        "intro": "Between {{from}} and {{to}} the patient logged {{sessions}} session(s) in the {{module}} programme, totalling {{minutes}} minutes of exercise and {{reps}} repetitions.",
+        "early": "Only a few sessions have been recorded, so trends are not yet reliable. Keep training and a full comparison will appear automatically.",
+        "rom": {
+          "improved": "Range of motion improved from an average of {{from}}° to {{to}}° ({{delta}}°).",
+          "declined": "Range of motion decreased from an average of {{from}}° to {{to}}° ({{delta}}°).",
+          "stable": "Range of motion has stayed stable at around {{to}}°."
+        },
+        "quality": {
+          "improved": "Movement quality rose from {{from}}% to {{to}}% ({{delta}} points).",
+          "declined": "Movement quality fell from {{from}}% to {{to}}% ({{delta}} points).",
+          "stable": "Movement quality is stable at around {{to}}%."
+        },
+        "pain": {
+          "improved": "Reported pain decreased from {{from}}/10 to {{to}}/10.",
+          "declined": "Reported pain increased from {{from}}/10 to {{to}}/10.",
+          "stable": "Reported pain is stable at around {{to}}/10."
+        },
+        "consistency": "Training frequency averaged {{perWeek}} session(s) per week, which is {{adherence}}% of the prescribed programme.",
+        "closing": {
+          "early": "More data is needed to assess the trend.",
+          "excellent": "Overall, recovery is progressing very well.",
+          "good": "Overall, recovery is progressing well.",
+          "steady": "Overall, recovery is steady; small adjustments may help speed it up.",
+          "attention": "Overall, some results need attention — see the recommendations below."
+        }
+      },
+      "kpi": {
+        "recovery": "Recovery",
+        "phase": "Phase",
+        "phaseValue": "{{phase}} / 4",
+        "sessions": "Sessions",
+        "adherence": "Programme completed",
+        "bestRom": "Best ROM",
+        "avgQuality": "Avg. quality",
+        "avgPain": "Avg. pain"
+      },
+      "compare": {
+        "heading": "Then vs. now",
+        "subtitle": "Average of the first {{k}} compared with the last {{k}} session(s)",
+        "metric": "Metric",
+        "baseline": "Start",
+        "recent": "Recent",
+        "change": "Change",
+        "rom": "Range of motion",
+        "quality": "Movement quality",
+        "pain": "Pain level",
+        "notEnough": "Not enough data"
+      },
+      "trends": {
+        "heading": "Trends across sessions",
+        "rom": "Range of motion (°)",
+        "quality": "Quality (%)",
+        "pain": "Pain (0–10)"
+      },
+      "findings": {
+        "heading": "Key findings",
+        "bestSession": "Best session: {{exercise}} on {{date}} with {{quality}}% quality.",
+        "topExercise": "Most practised exercise: {{exercise}} ({{count}} session(s)).",
+        "romTarget": "Peak range of motion of {{rom}}° is {{pct}}% of the {{target}}° clinical target.",
+        "latestPain": "Pain reported in the latest session: {{pain}}/10.",
+        "inactive": "No session has been logged for {{days}} day(s).",
+        "consistent": "Training is consistent, averaging {{perWeek}} session(s) per week."
+      },
+      "recs": {
+        "heading": "Recommendations",
+        "painHigh": "High pain was reported. Reduce the load and range, pause if needed, and discuss it with your doctor or physiotherapist.",
+        "inactive": "There has been a break of {{days}} day(s). Return to the programme gradually, starting with the easier exercises.",
+        "adherenceLow": "Sessions are happening fewer than 3 times per week. Consistency is the biggest driver of recovery; try tying sessions to a fixed time of day.",
+        "qualityLow": "Movement quality is below the target. Perform the exercises more slowly and focus on technique, following the cues in the session screen.",
+        "romLow": "Range of motion is still under 60% of the target. Continue gentle mobility work within a comfortable range.",
+        "nextPhase": "{{remaining}} more session(s) until Phase {{phase}}.",
+        "keepGoing": "Great work — keep the current routine and increase the load gradually, in agreement with your doctor.",
+        "early": "Keep training: after a few more sessions the report will show your trend.",
+        "consultDoctor": "Bring this report to your next appointment with your doctor."
+      },
+      "log": {
+        "heading": "Session log",
+        "showing": "Showing the {{count}} most recent session(s)",
+        "reps": "Reps"
+      },
+      "disclaimer": "This report is generated automatically from the patient's logged sessions using fixed rules. It is for information only and does not replace professional medical advice."
+    },
     "badge": "Progress Analytics",
     "title": "{{module}} — Progress",
     "description": "8-week trend computed from your logged sessions.",
@@ -373,18 +480,18 @@
       "loadingTitle": "Loading MediaPipe model…",
       "loadingSubtitle": "Downloading pose landmarker weights (~10 MB)",
       "liveBadge": "LIVE",
-      "correctForm": "Correct Form",
-      "checkForm": "Check Form",
+      "correctForm": "Good movement",
+      "checkForm": "Needs adjustment",
       "startCamera": "Start Camera",
       "stopCamera": "Stop Camera",
       "metrics": {
         "repCount": "Rep Count",
         "kneeAngle": "Knee angle",
         "elbowAngle": "Elbow angle",
-        "formScore": "Form score",
-        "correctness": "Correctness"
+        "formScore": "Movement score",
+        "correctness": "Movement quality"
       },
-      "classification": "Exercise Classification"
+      "classification": "Movement pattern analysis"
     },
     "imu": {
       "title": "Live IMU Stream — {{module}}",
@@ -414,13 +521,13 @@
     "briefSectionTitle": "Before you start",
     "howTo": "How to perform",
     "metrics": { "sets": "Sets", "repsSet": "Reps/Set", "duration": "Duration" },
-    "serverLabel": "AI form-check server",
+    "serverLabel": "Movement analysis server",
     "serverOnline": "Online",
     "serverOffline": "Offline",
     "serverRequired": "Server Required",
     "startSession": "Start Session",
-    "offlineTitle": "AI form-check server is offline",
-    "offlineDesc": "Start the FastAPI server to enable real-time form feedback during this session. Run {{cmd}} from the project root.",
+    "offlineTitle": "Movement analysis server is offline",
+    "offlineDesc": "Start the FastAPI server to enable real-time movement quality analysis during this session. Run {{cmd}} from the project root.",
     "offlineHint": "Once it's running on localhost:8000, refresh this page.",
     "pain": {
       "title": "How much pain did you feel?",
@@ -456,11 +563,13 @@
       "reps": "Reps",
       "kneeAngle": "Knee angle",
       "elbowAngle": "Elbow angle",
-      "formScore": "Form score",
-      "correctness": "Correctness",
+      "formScore": "Movement score",
+      "correctness": "Movement quality",
       "instructionsLabel": "Instructions",
       "feedbackLabel": "Live coaching",
-      "feedbackEmpty": "Get into the starting position to begin."
+      "feedbackEmpty": "Get into the starting position to begin.",
+      "exerciseDetected": "Pattern matched",
+      "checkMovement": "Adjust position"
     },
     "rest": {
       "complete": "Set {{current}} complete",

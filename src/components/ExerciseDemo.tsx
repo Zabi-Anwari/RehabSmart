@@ -619,6 +619,289 @@ const elbowGripStrength: DiagramFn = (accent) => (
   </Frame>
 );
 
+// ── Knee Phase 4 diagrams ─────────────────────────────────────────────────────
+
+const kneeWallSit: DiagramFn = (accent) => (
+  <Frame label="Hold isometric squat against wall">
+    <Floor />
+    <rect x="104" y="32" width="32" height="106" fill="#e2e8f0" rx="2" opacity="0.7" />
+    <text x="120" y="28" textAnchor="middle" fontSize="7" fill="#94a3b8" fontWeight="600" letterSpacing="0.5">WALL</text>
+    {HeadFront(120, 34)}
+    {Torso(120, 43, 94, 12)}
+    {Limb(109, 54, 93, 90, 4, 3)}
+    {Limb(131, 54, 147, 90, 4, 3)}
+    {Limb(113, 94, 78, 132, 7, 6)}
+    {Limb(78, 132, 74, 158, 6, 5)}
+    {Limb(127, 94, 162, 132, 7, 6)}
+    {Limb(162, 132, 166, 158, 6, 5)}
+    {Joint(78, 132, 4)}
+    {Joint(162, 132, 4)}
+    {MuscleBlob('M 109 96 Q 93 112 78 130 Q 84 135 94 122 Q 110 106 111 96 Z', accent)}
+    {MuscleBlob('M 131 96 Q 147 112 162 130 Q 156 135 146 122 Q 130 106 129 96 Z', accent)}
+    <ellipse cx="120" cy="92" rx="11" ry="4" fill={accent} opacity="0.5" />
+    <path d="M 44 106 L 44 122" stroke={accent} strokeWidth="2" />
+    <path d="M 40 109 L 44 106 L 48 109" stroke={accent} strokeWidth="1.5" fill="none" />
+    <path d="M 40 119 L 44 122 L 48 119" stroke={accent} strokeWidth="1.5" fill="none" />
+    {MuscleLabel(55, 142, 'Quads + Glutes', accent)}
+  </Frame>
+);
+
+const kneeLateralLunge: DiagramFn = (accent) => (
+  <Frame label="Step wide — bend one knee deeply">
+    <Floor />
+    {HeadFront(102, 30)}
+    {Torso(102, 39, 91, 12)}
+    {Limb(92, 52, 74, 88, 4, 3)}
+    {Limb(112, 52, 130, 88, 4, 3)}
+    {Limb(96, 91, 54, 124, 8, 7)}
+    {Limb(54, 124, 48, 158, 7, 6)}
+    {Limb(108, 91, 166, 100, 8, 7)}
+    {Limb(166, 100, 172, 158, 7, 6)}
+    {Joint(54, 124, 5)}
+    {Joint(166, 100, 4)}
+    {MuscleBlob('M 92 93 Q 72 106 54 122 Q 60 128 72 118 Q 88 104 94 93 Z', accent)}
+    <ellipse cx="102" cy="89" rx="9" ry="3" fill={accent} opacity="0.5" />
+    {Arrow('M 140 158 L 56 158', accent)}
+    {MuscleLabel(195, 120, 'Quad + Adductors', accent)}
+  </Frame>
+);
+
+const singleLegRDL: DiagramFn = (accent) => (
+  <Frame label="Hinge at hip — free leg extends behind">
+    <Floor />
+    {HeadSide(60, 62)}
+    <path d="M 64 54 L 64 68 L 110 86 L 110 74 Z" fill={SKIN} stroke={EDGE} strokeWidth="1.2" />
+    {Limb(70, 64, 92, 90, 4, 3)}
+    {Limb(94, 82, 90, 158, 7, 6)}
+    {Joint(90, 118, 4)}
+    {Limb(102, 82, 174, 58, 7, 6)}
+    {Limb(174, 58, 212, 54, 5, 4)}
+    <ellipse cx="102" cy="82" rx="11" ry="5" fill={accent} opacity="0.65" />
+    {MuscleBlob('M 100 82 Q 96 116 92 154 Q 87 154 90 116 Q 95 84 100 82 Z', accent)}
+    {Arrow('M 78 42 Q 66 52 62 62', accent)}
+    {MuscleLabel(170, 40, 'Hamstrings + Glutes', accent)}
+  </Frame>
+);
+
+// ── Leg Phase 1 diagrams ──────────────────────────────────────────────────────
+
+const legAnklePumps: DiagramFn = (accent) => (
+  <Frame label="Pump foot up and down — boost circulation">
+    <Floor />
+    {Limb(65, 45, 72, 120, 7, 6)}
+    {Limb(72, 120, 76, 155, 6, 5)}
+    {Joint(72, 120, 4)}
+    <path d="M 72 155 L 50 143 L 55 135 L 78 147 Z" fill={SKIN} stroke={EDGE} strokeWidth="1" />
+    <path d="M 72 153 L 95 162 L 90 170 L 70 159 Z" fill={SKIN} stroke={EDGE} strokeWidth="0.8" opacity="0.28" />
+    {MuscleBlob('M 76 86 Q 84 104 78 150 Q 72 150 72 108 Q 72 88 76 86 Z', accent)}
+    {Muscle('M 65 120 Q 62 136 60 152', accent)}
+    {Arrow('M 140 116 L 140 96', accent)}
+    {Arrow('M 158 96 L 158 116', accent)}
+    <text x="149" y="89" textAnchor="middle" fontSize="8" fill={accent} fontWeight="700">UP</text>
+    <text x="149" y="130" textAnchor="middle" fontSize="8" fill={accent} fontWeight="700">DOWN</text>
+    {MuscleLabel(185, 148, 'Calf + Ankle', accent)}
+  </Frame>
+);
+
+const legSupineHipFlexion: DiagramFn = (accent) => (
+  <Frame label="Draw knee gently toward chest">
+    <Floor />
+    <rect x="30" y="100" width="190" height="6" fill={FLOOR} rx="2" />
+    {HeadSide(45, 90)}
+    {Torso(75, 80, 100, 10)}
+    {Limb(73, 88, 60, 105, 4, 3)}
+    {Limb(77, 92, 95, 105, 4, 3)}
+    {Limb(105, 99, 165, 99, 6, 5)}
+    {Limb(165, 99, 210, 100, 5, 5)}
+    {Limb(105, 97, 126, 68, 7, 6)}
+    {Limb(126, 68, 100, 48, 6, 5)}
+    {Joint(126, 68, 4)}
+    <circle cx="100" cy="50" r="6" fill={SKIN} stroke={EDGE} strokeWidth="1" />
+    {MuscleBlob('M 105 92 Q 114 82 124 70 Q 128 72 120 84 Q 110 96 108 94 Z', accent)}
+    {Arrow('M 155 62 Q 140 56 122 62', accent)}
+    {MuscleLabel(178, 50, 'Hip Flexors', accent)}
+  </Frame>
+);
+
+const legProneHipExt: DiagramFn = (accent) => (
+  <Frame label="Lift straight leg — pure glute activation">
+    <Floor />
+    <rect x="20" y="118" width="200" height="6" fill={FLOOR} rx="2" />
+    {HeadSide(38, 110)}
+    <path d="M 48 100 L 48 118 L 135 118 L 135 102 Z" fill={SKIN} stroke={EDGE} strokeWidth="1.2" />
+    {Limb(55, 100, 35, 92, 3, 3)}
+    {Limb(135, 112, 180, 116, 7, 6)}
+    {Limb(180, 116, 215, 115, 6, 5)}
+    {Limb(135, 104, 188, 88, 7, 6)}
+    {Limb(188, 88, 218, 87, 6, 5)}
+    <ellipse cx="140" cy="98" rx="10" ry="5" fill={accent} opacity="0.75" />
+    {MuscleBlob('M 138 98 Q 162 88 186 86 Q 190 91 166 100 Q 142 108 138 104 Z', accent)}
+    {Arrow('M 215 110 Q 216 98 214 89', accent)}
+    {MuscleLabel(120, 68, 'Gluteus Maximus', accent)}
+  </Frame>
+);
+
+// ── Leg Phase 4 diagrams ──────────────────────────────────────────────────────
+
+const legWalkingLunges: DiagramFn = (accent) => (
+  <Frame label="Step forward — drive through the front heel">
+    <Floor />
+    {HeadSide(72, 36)}
+    {Torso(72, 46, 92, 11)}
+    {Limb(64, 58, 48, 90, 4, 3)}
+    {Limb(80, 58, 96, 90, 4, 3)}
+    {Limb(70, 92, 100, 132, 7, 6)}
+    {Limb(100, 132, 116, 158, 6, 5)}
+    {Joint(100, 132, 5)}
+    {Limb(74, 92, 38, 128, 7, 6)}
+    {Limb(38, 128, 30, 154, 6, 5)}
+    {Joint(38, 128, 4)}
+    {MuscleBlob('M 68 94 Q 84 110 100 130 Q 95 136 83 120 Q 68 104 68 94 Z', accent)}
+    <ellipse cx="74" cy="90" rx="9" ry="3" fill={accent} opacity="0.55" />
+    {Arrow('M 150 158 L 116 158', accent)}
+    {MuscleLabel(185, 115, 'Quads + Glutes', accent)}
+  </Frame>
+);
+
+const legLateralStepDown: DiagramFn = (accent) => (
+  <Frame label="Lower free leg slowly — eccentric quad control">
+    <Floor />
+    <rect x="130" y="112" width="85" height="40" fill={FLOOR} rx="3" stroke={EDGE} strokeWidth="1" />
+    {HeadFront(82, 30)}
+    {Torso(82, 39, 90, 12)}
+    {Limb(72, 52, 56, 88, 4, 3)}
+    {Limb(92, 52, 110, 88, 4, 3)}
+    {Limb(79, 90, 75, 112, 7, 6)}
+    {Limb(75, 112, 72, 150, 6, 5)}
+    {Joint(75, 112, 5)}
+    {Limb(85, 90, 122, 90, 7, 6)}
+    {Limb(122, 90, 130, 148, 6, 5)}
+    {Joint(122, 90, 4)}
+    {MuscleBlob('M 74 92 Q 72 100 72 112 Q 78 112 77 102 Q 77 94 74 92 Z', accent)}
+    {Arrow('M 130 116 L 130 146', accent)}
+    <text x="146" y="136" fontSize="8" fill={accent} fontWeight="700">SLOW</text>
+    {MuscleLabel(195, 88, 'Eccentric Quad', accent)}
+  </Frame>
+);
+
+// ── Elbow Phase 1 diagrams ────────────────────────────────────────────────────
+
+const elbowPendulumSwings: DiagramFn = (accent) => (
+  <Frame label="Arm hangs free — gravity decompresses joint">
+    <Floor />
+    {HeadSide(60, 68)}
+    <path d="M 64 62 L 66 78 L 130 86 L 128 72 Z" fill={SKIN} stroke={EDGE} strokeWidth="1.2" />
+    {Limb(68, 72, 48, 90, 4, 3)}
+    {Limb(48, 90, 34, 96, 3, 3)}
+    {Limb(124, 80, 120, 134, 5, 4)}
+    {Limb(120, 134, 118, 164, 4, 4)}
+    {Joint(120, 118, 4)}
+    <ellipse cx="118" cy="152" rx="26" ry="10" stroke={accent} strokeWidth="1.5" fill="none" strokeDasharray="3 2" opacity="0.65" />
+    <path d="M 118 142 Q 148 144 145 158" stroke={accent} strokeWidth="1.8" fill="none" markerEnd="url(#arrow)" style={{ color: accent }} />
+    <path d="M 91 158 Q 88 144 118 142" stroke={accent} strokeWidth="1.8" fill="none" markerEnd="url(#arrow)" style={{ color: accent }} />
+    <circle cx="120" cy="118" r="7" fill={accent} opacity="0.25" />
+    {MuscleLabel(190, 108, 'Elbow Joint', accent)}
+  </Frame>
+);
+
+const elbowPassiveExtension: DiagramFn = (accent) => (
+  <Frame label="Gravity gently restores full extension">
+    <Floor />
+    <rect x="30" y="115" width="190" height="8" fill={FLOOR} rx="2" />
+    {Limb(40, 115, 140, 115, 8, 7)}
+    {Joint(140, 115, 5)}
+    {Limb(140, 115, 170, 132, 5, 4)}
+    <circle cx="170" cy="144" r="8" fill={DARK} opacity="0.55" />
+    <line x1="170" y1="132" x2="170" y2="136" stroke={EDGE} strokeWidth="1.5" />
+    {Arrow('M 190 116 L 190 148', accent)}
+    <circle cx="140" cy="115" r="11" fill={accent} opacity="0.22" />
+    <circle cx="140" cy="115" r="6" fill={accent} opacity="0.55" stroke={accent} strokeWidth="1" />
+    <path d="M 153 108 A 16 16 0 0 1 162 122" stroke={accent} strokeWidth="2" fill="none" opacity="0.7" />
+    {MuscleLabel(80, 80, 'Elbow Extension', accent)}
+  </Frame>
+);
+
+const elbowIsometricFlexion: DiagramFn = (accent) => (
+  <Frame label="Press arm into surface — no joint movement">
+    <Floor />
+    <rect x="30" y="115" width="190" height="8" fill={FLOOR} rx="2" />
+    {Limb(100, 48, 100, 115, 6, 6)}
+    {Joint(100, 115, 5)}
+    {Limb(100, 115, 194, 115, 6, 6)}
+    {MuscleBlob('M 94 54 Q 88 78 94 113 Q 100 115 106 113 Q 112 78 106 54 Z', accent)}
+    <path d="M 148 95 L 148 110" stroke={accent} strokeWidth="2.5" />
+    <path d="M 144 107 L 148 111 L 152 107" stroke={accent} strokeWidth="1.8" fill="none" />
+    <path d="M 162 122 L 162 107" stroke={EDGE} strokeWidth="1.5" strokeDasharray="3 2" />
+    <path d="M 158 110 L 162 106 L 166 110" stroke={EDGE} strokeWidth="1.2" fill="none" />
+    {MuscleLabel(185, 70, 'Biceps Brachii', accent)}
+  </Frame>
+);
+
+// ── Elbow Phase 4 diagrams ────────────────────────────────────────────────────
+
+const elbowBandCurl: DiagramFn = (accent) => (
+  <Frame label="Curl against band — full bicep arc">
+    <Floor />
+    {HeadFront(120, 32)}
+    {Torso(120, 41, 100, 13)}
+    {Limb(108, 52, 94, 96, 5, 4)}
+    {Limb(94, 96, 80, 58, 4, 4)}
+    {Joint(94, 96, 5)}
+    {Limb(132, 52, 146, 96, 5, 4)}
+    {Limb(146, 96, 160, 58, 4, 4)}
+    {Joint(146, 96, 5)}
+    <path d="M 104 158 Q 120 152 136 158" stroke={accent} strokeWidth="3" fill="none" />
+    <path d="M 80 60 Q 80 112 104 158" stroke={accent} strokeWidth="1.5" strokeDasharray="3 2" fill="none" opacity="0.6" />
+    <path d="M 160 60 Q 160 112 136 158" stroke={accent} strokeWidth="1.5" strokeDasharray="3 2" fill="none" opacity="0.6" />
+    {MuscleBlob('M 104 56 Q 92 72 94 93 Q 100 95 100 76 Q 108 60 104 56 Z', accent)}
+    {MuscleBlob('M 136 56 Q 148 72 146 93 Q 140 95 140 76 Q 132 60 136 56 Z', accent)}
+    {Limb(114, 102, 104, 158, 6, 5)}
+    {Limb(126, 102, 136, 158, 6, 5)}
+    {Arrow('M 172 94 Q 188 74 170 50', accent)}
+    {MuscleLabel(195, 116, 'Biceps', accent)}
+  </Frame>
+);
+
+const elbowTricepPushdown: DiagramFn = (accent) => (
+  <Frame label="Push handles down — elbows pinned at sides">
+    <Floor />
+    <rect x="112" y="0" width="16" height="8" rx="2" fill={DARK} />
+    <line x1="120" y1="8" x2="120" y2="28" stroke={DARK} strokeWidth="2" />
+    {HeadFront(120, 38)}
+    {Torso(120, 47, 102, 12)}
+    {Limb(110, 60, 96, 104, 5, 4)}
+    {Limb(96, 104, 94, 148, 4, 4)}
+    {Joint(96, 104, 5)}
+    {Limb(130, 60, 144, 104, 5, 4)}
+    {Limb(144, 104, 146, 148, 4, 4)}
+    {Joint(144, 104, 5)}
+    <path d="M 94 148 Q 94 96 120 14" stroke={accent} strokeWidth="1.5" strokeDasharray="3 2" fill="none" opacity="0.65" />
+    <path d="M 146 148 Q 146 96 120 14" stroke={accent} strokeWidth="1.5" strokeDasharray="3 2" fill="none" opacity="0.65" />
+    {MuscleBlob('M 106 64 Q 96 82 95 103 Q 101 105 102 88 Q 108 68 106 64 Z', accent)}
+    {MuscleBlob('M 134 64 Q 144 82 145 103 Q 139 105 138 88 Q 132 68 134 64 Z', accent)}
+    {Limb(114, 104, 106, 158, 6, 5)}
+    {Limb(126, 104, 134, 158, 6, 5)}
+    {Arrow('M 66 104 L 66 140', accent)}
+    {MuscleLabel(52, 155, 'Triceps', accent)}
+  </Frame>
+);
+
+const elbowEccentricWristExt: DiagramFn = (accent) => (
+  <Frame label="Lower wrist slowly — eccentric tendon load">
+    <Floor />
+    <rect x="30" y="116" width="190" height="7" fill={FLOOR} rx="2" />
+    {Limb(40, 116, 142, 116, 8, 7)}
+    {Joint(142, 116, 5)}
+    {Limb(142, 116, 170, 90, 5, 4)}
+    <g opacity="0.28">{Limb(142, 116, 170, 142, 5, 4)}</g>
+    {MuscleBlob('M 45 109 Q 90 105 140 109 Q 140 116 90 116 Q 45 115 45 111 Z', accent)}
+    <circle cx="136" cy="82" r="5" fill={SKIN} stroke={EDGE} strokeWidth="1" />
+    {Arrow('M 174 88 L 174 138', accent)}
+    <text x="190" y="116" fontSize="8" fill={accent} fontWeight="700" textAnchor="middle">SLOW</text>
+    {MuscleLabel(95, 74, 'Wrist Extensors', accent)}
+  </Frame>
+);
+
 const DIAGRAMS: Record<string, DiagramFn> = {
   // Knee
   'knee-ex-1': kneeQuadSets,
@@ -627,6 +910,9 @@ const DIAGRAMS: Record<string, DiagramFn> = {
   'knee-ex-4': kneeMiniSquats,
   'knee-ex-5': kneeTerminalKneeExtension,
   'knee-ex-6': kneeStepUps,
+  'knee-ex-7': kneeWallSit,
+  'knee-ex-8': kneeLateralLunge,
+  'knee-ex-9': singleLegRDL,
   // Leg
   'leg-ex-1': legCalfRaise,
   'leg-ex-2': legSideLyingHipAbduction,
@@ -634,6 +920,12 @@ const DIAGRAMS: Record<string, DiagramFn> = {
   'leg-ex-4': legForwardStepUp,
   'leg-ex-5': legSingleLegBalance,
   'leg-ex-6': legLateralBandWalk,
+  'leg-ex-7': legAnklePumps,
+  'leg-ex-8': legSupineHipFlexion,
+  'leg-ex-9': legProneHipExt,
+  'leg-ex-10': singleLegRDL,
+  'leg-ex-11': legWalkingLunges,
+  'leg-ex-12': legLateralStepDown,
   // Elbow
   'elbow-ex-1': elbowFlexionExtension,
   'elbow-ex-2': elbowSupinationPronation,
@@ -641,4 +933,10 @@ const DIAGRAMS: Record<string, DiagramFn> = {
   'elbow-ex-4': elbowBicepCurl,
   'elbow-ex-5': elbowTricepOverhead,
   'elbow-ex-6': elbowGripStrength,
+  'elbow-ex-7': elbowPendulumSwings,
+  'elbow-ex-8': elbowPassiveExtension,
+  'elbow-ex-9': elbowIsometricFlexion,
+  'elbow-ex-10': elbowBandCurl,
+  'elbow-ex-11': elbowTricepPushdown,
+  'elbow-ex-12': elbowEccentricWristExt,
 };

@@ -57,8 +57,11 @@ const VISIBILITY_THRESHOLD = 0.5;
 type PoseLandmarker = import("@mediapipe/tasks-vision").PoseLandmarker;
 type NormalizedLandmark = { x: number; y: number; z: number; visibility?: number };
 
-const SKELETON_BUFFER_SIZE = 30;  // frames to accumulate before inference
+const SKELETON_BUFFER_SIZE  = 30;  // frames to accumulate before inference
 const INFERENCE_INTERVAL_MS = 100; // minimum ms between inferences
+// Exponential moving average weight applied to each new joint position.
+// Lower = smoother but laggier; 0.35 is a good balance for 30 fps video.
+const SMOOTH_ALPHA = 0.35;
 
 // Default angle thresholds for rep state machine — overridable per exercise
 // via options.repDetection. The hip-knee-ankle angle is ~180° when leg is
@@ -157,6 +160,9 @@ export function useKneePipeline(options: UseKneePipelineOptions = {}): UseKneePi
   const skeletonBufferRef  = useRef<Vec3[][]>([]);
   const lastInferenceRef   = useRef<number>(0);
   const isRunningRef       = useRef(false);
+  // EMA-smoothed joint positions — used for drawing + angle display only.
+  // Raw joints go into skeletonBufferRef so inference sees unsmoothed data.
+  const smoothedJointsRef  = useRef<Vec3[] | null>(null);
 
   // Rep state machine: 'extended' → 'flexed' → 'extended' counts one rep.
   const repPhaseRef        = useRef<'extended' | 'flexed' | 'unknown'>('unknown');
@@ -261,12 +267,18 @@ export function useKneePipeline(options: UseKneePipelineOptions = {}): UseKneePi
     );
     const pl = await PoseLandmarker.createFromOptions(vision, {
       baseOptions: {
+        // `full` model (~6 MB) gives significantly better joint accuracy than
+        // `lite` (~3 MB) with only a small speed cost — the right trade-off
+        // for a desktop rehab app where accuracy matters more than fps.
         modelAssetPath:
-          "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task",
+          "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/1/pose_landmarker_full.task",
         delegate: "GPU",
       },
       runningMode: "VIDEO",
       numPoses: 1,
+      // Lower tracking confidence so the tracker holds onto the pose during
+      // fast movements instead of dropping it and triggering a slow re-detect.
+      minTrackingConfidence: 0.4,
     });
     return pl;
   }, []);
@@ -277,8 +289,10 @@ export function useKneePipeline(options: UseKneePipelineOptions = {}): UseKneePi
       ctx.clearRect(0, 0, w, h);
 
       // Bones
-      ctx.strokeStyle = "rgba(74, 222, 128, 0.8)";
-      ctx.lineWidth   = 2;
+      ctx.strokeStyle = "rgba(74, 222, 128, 0.85)";
+      ctx.lineWidth   = 3;
+      ctx.lineCap     = "round";
+      ctx.lineJoin    = "round";
       for (const [a, b] of SKELETON_CONNECTIONS) {
         if (!joints[a] || !joints[b]) continue;
         ctx.beginPath();
@@ -287,24 +301,27 @@ export function useKneePipeline(options: UseKneePipelineOptions = {}): UseKneePi
         ctx.stroke();
       }
 
-      // Joints
+      // Regular joints
       ctx.fillStyle = "rgba(52, 211, 153, 1)";
       for (const j of joints) {
         if (!j) continue;
         ctx.beginPath();
-        ctx.arc(j[0] * w, j[1] * h, 4, 0, Math.PI * 2);
+        ctx.arc(j[0] * w, j[1] * h, 5, 0, Math.PI * 2);
         ctx.fill();
       }
 
-      // Highlight the joint(s) most relevant to this rehab type
-      ctx.fillStyle = "rgba(250, 204, 21, 1)";
+      // Highlighted joints — larger + yellow glow so the key joint is obvious
+      ctx.shadowColor = "rgba(250, 204, 21, 0.9)";
+      ctx.shadowBlur  = 12;
+      ctx.fillStyle   = "rgba(250, 204, 21, 1)";
       for (const idx of highlightIdxs) {
         const j = joints[idx];
         if (!j) continue;
         ctx.beginPath();
-        ctx.arc(j[0] * w, j[1] * h, 7, 0, Math.PI * 2);
+        ctx.arc(j[0] * w, j[1] * h, 8, 0, Math.PI * 2);
         ctx.fill();
       }
+      ctx.shadowBlur = 0;
     },
     [highlightIdxs]
   );
@@ -355,9 +372,25 @@ export function useKneePipeline(options: UseKneePipelineOptions = {}): UseKneePi
         setBodyPartVisible(visible);
       }
 
-      const joints = mediapipeToSkeleton133(rawLandmarks);
+      const rawJoints = mediapipeToSkeleton133(rawLandmarks);
 
-      if (joints) {
+      if (rawJoints) {
+        // EMA smoothing for drawing + angle display.
+        // Raw joints go into the skeleton buffer so inference sees unsmoothed data.
+        const prev = smoothedJointsRef.current;
+        const joints: Vec3[] = prev
+          ? rawJoints.map((j, i): Vec3 =>
+              prev[i]
+                ? [
+                    prev[i][0] * (1 - SMOOTH_ALPHA) + j[0] * SMOOTH_ALPHA,
+                    prev[i][1] * (1 - SMOOTH_ALPHA) + j[1] * SMOOTH_ALPHA,
+                    prev[i][2] * (1 - SMOOTH_ALPHA) + j[2] * SMOOTH_ALPHA,
+                  ]
+                : j
+            )
+          : rawJoints;
+        smoothedJointsRef.current = joints;
+
         const ctx = canvas.getContext("2d");
         if (ctx) drawSkeleton(ctx, joints, canvas.width, canvas.height);
 
@@ -393,11 +426,11 @@ export function useKneePipeline(options: UseKneePipelineOptions = {}): UseKneePi
           }
         }
 
-        // Buffer frames for batch inference — but only when the body part is
-        // visible, otherwise the model classifies phantom skeleton data and
-        // returns spurious "correct" form scores.
+        // Buffer RAW (unsmoothed) frames for batch inference — the model was
+        // trained on unsmoothed motion data, and we only buffer when the body
+        // part is visible to avoid phantom classifications.
         if (visible) {
-          skeletonBufferRef.current.push(joints);
+          skeletonBufferRef.current.push(rawJoints);
           if (skeletonBufferRef.current.length >= SKELETON_BUFFER_SIZE) {
             const frames = skeletonBufferRef.current.splice(0, SKELETON_BUFFER_SIZE);
             if (now - lastInferenceRef.current > INFERENCE_INTERVAL_MS && isServerOnline) {
@@ -406,7 +439,11 @@ export function useKneePipeline(options: UseKneePipelineOptions = {}): UseKneePi
                 .predictSkeleton(frames as number[][][])
                 .then((pred) => {
                   setPrediction({ skeleton: pred, imu: null, timestamp: Date.now() });
-                  const score = pred.correctness === "correct" ? 90 : 45;
+                  // Use the model's confidence value for a nuanced 0–100 score
+                  // instead of the previous binary 90/45 split.
+                  const score = pred.correctness === "correct"
+                    ? Math.round(50 + pred.correctness_confidence * 50)   // 50–100
+                    : Math.round((1 - pred.correctness_confidence) * 50); // 0–50
                   setFormScore(score);
                   formScoreSumRef.current  += score;
                   formScoreCountRef.current += 1;
@@ -415,13 +452,17 @@ export function useKneePipeline(options: UseKneePipelineOptions = {}): UseKneePi
             }
           }
         } else {
-          // Drop any stale frames so the next batch only contains real
-          // visible-body frames.
+          // Drop stale frames so the next batch only contains real visible frames.
           skeletonBufferRef.current = [];
         }
       }
     } else {
-      // No person detected at all — clear any partial state.
+      // No person detected — clear canvas and reset smoother so the next
+      // detection starts fresh instead of blending in stale positions.
+      const ctx = canvas.getContext("2d");
+      ctx?.clearRect(0, 0, canvas.width, canvas.height);
+      smoothedJointsRef.current = null;
+
       if (bodyPartVisibleRef.current) {
         bodyPartVisibleRef.current = false;
         setBodyPartVisible(false);
@@ -492,6 +533,7 @@ export function useKneePipeline(options: UseKneePipelineOptions = {}): UseKneePi
     streamRef.current?.getTracks().forEach((t) => t.stop());
     streamRef.current = null;
     skeletonBufferRef.current = [];
+    smoothedJointsRef.current = null;
     bodyPartVisibleRef.current = false;
     setBodyPartVisible(null);
     setKneeAngle(null);
@@ -505,12 +547,10 @@ export function useKneePipeline(options: UseKneePipelineOptions = {}): UseKneePi
   // Cleanup on unmount
   useEffect(() => () => stopCamera(), [stopCamera]);
 
-  // matchesTarget compares the model's classified exercise label against the
-  // one the patient is supposed to be doing. Currently disabled — the
-  // KNEE_ML_LABEL_TO_EXERCISE_ID mapping in constants.ts is known broken
-  // (model was trained on REHAB24-6's arm/squat/lunge labels, not our
-  // clinical knee exercises). Always returns null so the UI hides the badge.
-  const matchesTarget: boolean | null = null;
+  const matchesTarget: boolean | null =
+    prediction?.skeleton?.exercise_type != null && targetMlLabel != null
+      ? prediction.skeleton.exercise_type === targetMlLabel
+      : null;
 
   // Build live human-readable coaching messages.
   const feedback: string[] = (() => {

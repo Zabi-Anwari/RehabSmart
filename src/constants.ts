@@ -162,6 +162,51 @@ export const KNEE_EXERCISES: Exercise[] = [
     targetArea: 'Knee', rehabType: 'knee',
     repDetection: { strategy: 'angle', flexedAt: 130, extendedAt: 165 }, // full step cycle
   },
+  {
+    id: 'knee-ex-7',
+    title: 'Wall Sit',
+    description: 'Isometric quadriceps endurance exercise that builds sustained strength needed for return to sport and daily activities.',
+    instructions: [
+      'Stand with your back flat against a wall, feet shoulder-width apart.',
+      'Slide down until both knees are at 90° (or your comfortable limit).',
+      'Hold the position, keeping the back flat and knees over ankles.',
+      'Push back up the wall slowly when done.',
+    ],
+    sets: 3, reps: 1, difficulty: 'Advanced', phase: 4, duration: 12,
+    safetyNotes: 'Do not allow knees to drift inward. Reduce depth if there is patellofemoral pain.',
+    targetArea: 'Knee', rehabType: 'knee',
+    repDetection: { strategy: 'hold', holdSec: 30 }, // 1 rep = 30 s isometric
+  },
+  {
+    id: 'knee-ex-8',
+    title: 'Lateral Lunge',
+    description: 'Strengthens hip abductors, adductors, and quads through the frontal plane — essential for cutting and lateral sport movements.',
+    instructions: [
+      'Stand with feet together, hands on hips or clasped in front.',
+      'Step wide to one side, bending the stepping knee to ~90° while keeping the other leg straight.',
+      'Push through the bent knee to return to the start position.',
+      'Alternate sides each rep.',
+    ],
+    sets: 3, reps: 10, difficulty: 'Advanced', phase: 4, duration: 14,
+    safetyNotes: 'Keep the lunging knee tracking over the second toe. Avoid forward trunk collapse.',
+    targetArea: 'Knee', rehabType: 'knee',
+    repDetection: { strategy: 'angle', flexedAt: 110, extendedAt: 165 }, // lateral squat flexion arc
+  },
+  {
+    id: 'knee-ex-9',
+    title: 'Single-Leg Romanian Deadlift',
+    description: 'Challenges posterior chain strength and knee proprioception in a functional single-leg hip-hinge pattern.',
+    instructions: [
+      'Stand on the injured leg, slight bend in the knee.',
+      'Hinge forward at the hip, extending the opposite leg behind you.',
+      'Lower the trunk until it is nearly parallel with the floor (or your limit).',
+      'Drive through the standing heel to return upright.',
+    ],
+    sets: 3, reps: 10, difficulty: 'Advanced', phase: 4, duration: 14,
+    safetyNotes: 'Keep the spine neutral throughout. Use a wall for balance if needed initially.',
+    targetArea: 'Knee', rehabType: 'knee',
+    repDetection: { strategy: 'angle', flexedAt: 100, extendedAt: 170 }, // hip-hinge with knee tracking
+  },
 ];
 
 // ─── Leg Exercises ────────────────────────────────────────────────────────────
@@ -256,6 +301,96 @@ export const LEG_EXERCISES: Exercise[] = [
     safetyNotes: 'Keep the band taut throughout. Do not let the knees collapse inward.',
     targetArea: 'Leg', rehabType: 'leg',
     repDetection: { strategy: 'hold', holdSec: 2 }, // 24 steps × 2 s each
+  },
+  {
+    id: 'leg-ex-7',
+    title: 'Ankle Pumps',
+    description: 'Gentle ankle dorsiflexion and plantarflexion to promote circulation and reduce oedema in the acute phase.',
+    instructions: [
+      'Sit or lie with the leg supported and elevated if possible.',
+      'Slowly pull the foot upward toward the shin (dorsiflexion).',
+      'Hold 2 seconds, then point the foot away (plantarflexion).',
+      'Repeat at a steady, comfortable pace.',
+    ],
+    sets: 3, reps: 20, difficulty: 'Beginner', phase: 1, duration: 5,
+    safetyNotes: 'Move through the ankle only. Stop if calf cramping occurs.',
+    targetArea: 'Leg', rehabType: 'leg',
+    repDetection: { strategy: 'hold', holdSec: 2 }, // ankle angle not in pose triplet
+  },
+  {
+    id: 'leg-ex-8',
+    title: 'Supine Hip Flexion (Knee-to-Chest)',
+    description: 'Gently restores hip flexion range and activates the hip flexors with no lower-limb loading.',
+    instructions: [
+      'Lie on your back with both legs extended.',
+      'Slowly draw the affected knee toward the chest, holding behind the thigh.',
+      'Bring it to a comfortable end range and hold 3 seconds.',
+      'Lower the leg back to the start position with control.',
+    ],
+    sets: 3, reps: 10, difficulty: 'Beginner', phase: 1, duration: 8,
+    safetyNotes: 'Do not pull beyond a comfortable range. Keep the lower back flat on the surface.',
+    targetArea: 'Leg', rehabType: 'leg',
+    repDetection: { strategy: 'angle', flexedAt: 100, extendedAt: 165 }, // hip flexion while supine
+  },
+  {
+    id: 'leg-ex-9',
+    title: 'Prone Hip Extension',
+    description: 'Gentle glute and posterior hip activation in a gravity-reduced position — safe for the acute phase.',
+    instructions: [
+      'Lie face down with legs extended and feet together.',
+      'Keeping the knee straight, lift the affected leg a few inches off the surface.',
+      'Hold 3 seconds, squeezing the glute.',
+      'Lower slowly back to the surface.',
+    ],
+    sets: 3, reps: 10, difficulty: 'Beginner', phase: 1, duration: 8,
+    safetyNotes: 'Keep the pelvis flat — do not rotate the hip to gain height.',
+    targetArea: 'Leg', rehabType: 'leg',
+    repDetection: { strategy: 'hold', holdSec: 3 }, // prone position, hold per rep
+  },
+  {
+    id: 'leg-ex-10',
+    title: 'Single-Leg Romanian Deadlift',
+    description: 'Advanced posterior chain exercise challenging hip stability, hamstring strength, and proprioception simultaneously.',
+    instructions: [
+      'Stand on the affected leg, with a slight bend at the knee.',
+      'Hinge at the hip, sending the free leg behind you as a counterbalance.',
+      'Lower the torso until nearly parallel to the floor, or to your limit.',
+      'Drive through the standing heel to return to upright.',
+    ],
+    sets: 3, reps: 10, difficulty: 'Advanced', phase: 4, duration: 14,
+    safetyNotes: 'Keep the spine neutral. A slight knee bend prevents hyperextension.',
+    targetArea: 'Leg', rehabType: 'leg',
+    repDetection: { strategy: 'angle', flexedAt: 110, extendedAt: 170 }, // hip hinge on single leg
+  },
+  {
+    id: 'leg-ex-11',
+    title: 'Walking Lunges',
+    description: 'Dynamic lower-limb exercise combining strength, coordination and balance to prepare for running and sport.',
+    instructions: [
+      'Start standing with feet together.',
+      'Step forward into a lunge, lowering the rear knee toward the floor.',
+      'Drive through the front heel and step the rear foot forward into the next lunge.',
+      'Maintain an upright trunk throughout the sequence.',
+    ],
+    sets: 3, reps: 20, difficulty: 'Advanced', phase: 4, duration: 14,
+    safetyNotes: 'Ensure the front knee does not travel past the toes. Do not allow knee cave.',
+    targetArea: 'Leg', rehabType: 'leg',
+    repDetection: { strategy: 'angle', flexedAt: 115, extendedAt: 165 }, // lunge knee flexion
+  },
+  {
+    id: 'leg-ex-12',
+    title: 'Lateral Step-Down (Eccentric)',
+    description: 'Eccentric single-leg quad control on a step — a benchmark return-to-sport exercise for lower-limb rehab.',
+    instructions: [
+      'Stand on the affected leg on top of a 6–8 inch step.',
+      'Slowly lower the heel of the free leg toward the floor over 4–5 counts.',
+      'Tap the floor lightly, then drive through the standing leg to return.',
+      'Focus on the slow controlled descent phase — that is the key.',
+    ],
+    sets: 3, reps: 10, difficulty: 'Advanced', phase: 4, duration: 15,
+    safetyNotes: 'The standing knee must not cave inward during the descent. Reduce step height if needed.',
+    targetArea: 'Leg', rehabType: 'leg',
+    repDetection: { strategy: 'angle', flexedAt: 130, extendedAt: 170 }, // eccentric knee flexion on step
   },
 ];
 
@@ -352,6 +487,96 @@ export const ELBOW_EXERCISES: Exercise[] = [
     targetArea: 'Elbow', rehabType: 'elbow',
     repDetection: { strategy: 'hold', holdSec: 6 }, // 5 s squeeze + 1 s relax
   },
+  {
+    id: 'elbow-ex-7',
+    title: 'Elbow Pendulum Swings',
+    description: 'Gravity-assisted gentle ROM exercise that decompresses the joint and maintains early range without muscular effort.',
+    instructions: [
+      'Stand and lean forward slightly, letting the affected arm hang freely.',
+      'Allow gravity to gently straighten the elbow.',
+      'Gently swing the arm in small circles — forward, side, and diagonal.',
+      'Perform for 60 seconds per set without forcing the movement.',
+    ],
+    sets: 3, reps: 1, difficulty: 'Beginner', phase: 1, duration: 5,
+    safetyNotes: 'No gripping or muscle activation. Pure gravity-assisted movement only.',
+    targetArea: 'Elbow', rehabType: 'elbow',
+    repDetection: { strategy: 'hold', holdSec: 60 }, // 1 rep = 60 s of pendulum motion
+  },
+  {
+    id: 'elbow-ex-8',
+    title: 'Passive Extension Stretch',
+    description: 'Low-load prolonged stretch to restore terminal elbow extension commonly lost after fracture or surgery.',
+    instructions: [
+      'Sit with the affected arm resting on a table, palm facing up.',
+      'Place a small weight (0.5 kg) or gentle manual pressure on the wrist.',
+      'Relax completely and allow gravity to slowly extend the elbow.',
+      'Hold without forcing — the stretch should be mild and comfortable.',
+    ],
+    sets: 3, reps: 1, difficulty: 'Beginner', phase: 1, duration: 10,
+    safetyNotes: 'Never force terminal extension. Discontinue if sharp or shooting pain occurs.',
+    targetArea: 'Elbow', rehabType: 'elbow',
+    repDetection: { strategy: 'hold', holdSec: 45 }, // low-load sustained stretch
+  },
+  {
+    id: 'elbow-ex-9',
+    title: 'Isometric Elbow Flexion',
+    description: 'Activates the bicep and brachialis without elbow joint movement — safe for the acute inflammatory phase.',
+    instructions: [
+      'Sit with the elbow bent to 90° and forearm resting on a table.',
+      'Press the forearm downward into the table as if trying to flex the elbow.',
+      'Hold the contraction for 5 seconds without any movement.',
+      'Fully relax for 5 seconds, then repeat.',
+    ],
+    sets: 3, reps: 10, difficulty: 'Beginner', phase: 1, duration: 8,
+    safetyNotes: 'Contraction should be at about 50% of maximum effort. No joint motion is the goal.',
+    targetArea: 'Elbow', rehabType: 'elbow',
+    repDetection: { strategy: 'hold', holdSec: 5 }, // pure isometric — no angle change
+  },
+  {
+    id: 'elbow-ex-10',
+    title: 'Resistance Band Bicep Curl (Progressive)',
+    description: 'Progressive loaded bicep curl for phase 4 return to function, using band resistance to match strength recovery.',
+    instructions: [
+      'Stand on the centre of a resistance band, holding one end in each hand.',
+      'Keep elbows anchored at your sides, palms facing forward.',
+      'Curl both hands toward the shoulders in a controlled motion.',
+      'Lower slowly over 3–4 counts to fully extend the elbows.',
+    ],
+    sets: 3, reps: 12, difficulty: 'Intermediate', phase: 4, duration: 12,
+    safetyNotes: 'Choose band resistance so the last 2 reps are challenging but pain-free.',
+    targetArea: 'Elbow', rehabType: 'elbow',
+    repDetection: { strategy: 'angle', flexedAt: 75, extendedAt: 155 }, // full curl arc
+  },
+  {
+    id: 'elbow-ex-11',
+    title: 'Resistance Band Tricep Pushdown',
+    description: 'Targeted tricep strengthening using band resistance to simulate sport and work demands at end-stage rehab.',
+    instructions: [
+      'Anchor a resistance band overhead (door anchor or high rail).',
+      'Stand facing the anchor, elbows bent to 90° and pinned at your sides.',
+      'Push the hands down to fully extend both elbows.',
+      'Control the return slowly — resist the band pulling the elbows back up.',
+    ],
+    sets: 3, reps: 12, difficulty: 'Intermediate', phase: 4, duration: 12,
+    safetyNotes: 'Keep the elbows locked in place at your sides. Avoid swinging or shrugging.',
+    targetArea: 'Elbow', rehabType: 'elbow',
+    repDetection: { strategy: 'angle', flexedAt: 100, extendedAt: 165 }, // pushdown extension arc
+  },
+  {
+    id: 'elbow-ex-12',
+    title: 'Eccentric Wrist Extension (Reverse Tyler Twist)',
+    description: 'Evidence-based eccentric tendon loading for lateral epicondylitis recovery — reduces tendon pain and restores grip function.',
+    instructions: [
+      'Hold a light weight or band handle in the affected hand, palm facing down.',
+      'Use the other hand to passively flex (bend) the wrist fully.',
+      'Release the assisting hand and eccentrically lower the wrist slowly over 3 counts.',
+      'Complete all reps — use both hands to reset, one hand to lower.',
+    ],
+    sets: 3, reps: 15, difficulty: 'Intermediate', phase: 4, duration: 10,
+    safetyNotes: 'Mild ache during the exercise is expected. Avoid sharp or reproducing nerve pain.',
+    targetArea: 'Elbow', rehabType: 'elbow',
+    repDetection: { strategy: 'hold', holdSec: 3 }, // 3-count eccentric per rep
+  },
 ];
 
 export const ALL_EXERCISES: Exercise[] = [...KNEE_EXERCISES, ...LEG_EXERCISES, ...ELBOW_EXERCISES];
@@ -386,7 +611,7 @@ export const REHAB_PHASES: Record<RehabType, RehabPhase[]> = {
       phase: 4, name: 'Return to Activity', durationWeeks: 'Weeks 11–16',
       goal: 'Cleared for sports/work with full strength and confidence.',
       focusAreas: ['Running progression', 'Agility training', 'Sport-specific drills', 'Long-term maintenance'],
-      exercises: ['knee-ex-5', 'knee-ex-6'],
+      exercises: ['knee-ex-5', 'knee-ex-6', 'knee-ex-7', 'knee-ex-8', 'knee-ex-9'],
     },
   ],
   leg: [
@@ -394,7 +619,7 @@ export const REHAB_PHASES: Record<RehabType, RehabPhase[]> = {
       phase: 1, name: 'Inflammation & Pain Control', durationWeeks: 'Weeks 1–2',
       goal: 'Minimize pain and protect healing tissue.',
       focusAreas: ['Rest & protection', 'Gentle activation', 'Edema management', 'Range of motion maintenance'],
-      exercises: ['leg-ex-1', 'leg-ex-2'],
+      exercises: ['leg-ex-1', 'leg-ex-2', 'leg-ex-7', 'leg-ex-8', 'leg-ex-9'],
     },
     {
       phase: 2, name: 'Mobility & Muscle Activation', durationWeeks: 'Weeks 3–5',
@@ -412,7 +637,7 @@ export const REHAB_PHASES: Record<RehabType, RehabPhase[]> = {
       phase: 4, name: 'Endurance & Return to Sport', durationWeeks: 'Weeks 11–16',
       goal: 'Full lower-limb endurance and return to pre-injury activity level.',
       focusAreas: ['Running endurance', 'Reactive agility', 'Return-to-sport testing', 'Maintenance program'],
-      exercises: ['leg-ex-5', 'leg-ex-6'],
+      exercises: ['leg-ex-5', 'leg-ex-6', 'leg-ex-10', 'leg-ex-11', 'leg-ex-12'],
     },
   ],
   elbow: [
@@ -420,7 +645,7 @@ export const REHAB_PHASES: Record<RehabType, RehabPhase[]> = {
       phase: 1, name: 'Pain & Inflammation Control', durationWeeks: 'Weeks 1–2',
       goal: 'Protect healing structures and manage acute inflammation.',
       focusAreas: ['Pain management', 'Edema control', 'Gentle ROM', 'Protecting tendon attachment'],
-      exercises: ['elbow-ex-1', 'elbow-ex-2'],
+      exercises: ['elbow-ex-1', 'elbow-ex-2', 'elbow-ex-7', 'elbow-ex-8', 'elbow-ex-9'],
     },
     {
       phase: 2, name: 'Range of Motion Recovery', durationWeeks: 'Weeks 3–5',
@@ -438,7 +663,7 @@ export const REHAB_PHASES: Record<RehabType, RehabPhase[]> = {
       phase: 4, name: 'Functional Return', durationWeeks: 'Weeks 11–16',
       goal: 'Return to pre-injury activities including sport and occupational demands.',
       focusAreas: ['Work-simulation tasks', 'Sport-specific loading', 'Throwing/racket drills', 'Maintenance'],
-      exercises: ['elbow-ex-5', 'elbow-ex-6'],
+      exercises: ['elbow-ex-5', 'elbow-ex-6', 'elbow-ex-10', 'elbow-ex-11', 'elbow-ex-12'],
     },
   ],
 };
@@ -540,16 +765,16 @@ export const MOCK_PATIENTS: Patient[] = [
 
 export const ML_PIPELINES: Record<RehabType, MLPipelineStatus[]> = {
   knee: [
-    { pipelineId: 'knee-ml-1', name: 'Knee Angle Tracker', rehabType: 'knee', status: 'active', description: 'MediaPipe Pose tracks knee flexion/extension angle in real time from the device camera.' },
-    { pipelineId: 'knee-ml-2', name: 'Movement Quality Classifier', rehabType: 'knee', status: 'active', description: 'UCI Physical Therapy model (5-sensor, 45-channel) scores exercise form: correct / fast / low_amplitude.' },
+    { pipelineId: 'knee-ml-1', name: 'Knee Angle Tracker', rehabType: 'knee', status: 'active', description: 'MediaPipe PoseLandmarker tracks knee flexion/extension angle in real time from the device camera using trigonometry on detected body landmarks.' },
+    { pipelineId: 'knee-ml-2', name: 'Movement Quality Classifier', rehabType: 'knee', status: 'active', description: 'Movement quality model trained on general exercise motion patterns. Signals whether movement is well-controlled or shows issues (too fast, low range, jerky). Not validated against clinical rehab protocols.' },
   ],
   leg: [
-    { pipelineId: 'leg-ml-1', name: 'Exercise Type Classifier', rehabType: 'leg', status: 'active', description: 'HugaDB model (6-sensor, 36-channel) classifies lower-limb exercise type from IMU in real time.' },
-    { pipelineId: 'leg-ml-2', name: 'Movement Quality Classifier', rehabType: 'leg', status: 'active', description: 'Single-sensor quality model (6-channel) rates form as correct / too_fast / shaky / low_amplitude.' },
+    { pipelineId: 'leg-ml-1', name: 'Movement Pattern Classifier', rehabType: 'leg', status: 'active', description: 'Skeleton-based model (trained on REHAB24-6 motion data) classifies detected movement against 6 general lower-limb movement archetypes via IMU-augmented inference.' },
+    { pipelineId: 'leg-ml-2', name: 'Movement Quality Classifier', rehabType: 'leg', status: 'active', description: 'Quality model trained on general exercise motion. Rates movement as well-controlled, too fast, shaky, or low amplitude. Results are informational and not a substitute for clinical assessment.' },
   ],
   elbow: [
-    { pipelineId: 'elbow-ml-1', name: 'Elbow Angle & ROM Tracker', rehabType: 'elbow', status: 'active', description: 'Gyro integration tracks live elbow flexion angle; MediaPipe Pose measures range of motion from camera.' },
-    { pipelineId: 'elbow-ml-2', name: 'Movement Quality Classifier', rehabType: 'elbow', status: 'active', description: 'Single-sensor quality model (6-channel) rates repetition form in real time.' },
+    { pipelineId: 'elbow-ml-1', name: 'Elbow Angle & ROM Tracker', rehabType: 'elbow', status: 'active', description: 'Gyro integration tracks live elbow flexion angle from IMU sensor data; MediaPipe Pose estimates range of motion from camera when the sensor is not connected.' },
+    { pipelineId: 'elbow-ml-2', name: 'Movement Quality Classifier', rehabType: 'elbow', status: 'active', description: 'Quality model trained on general exercise motion. Rates repetition form in real time. Results are informational and not a substitute for clinical assessment.' },
   ],
 };
 
@@ -578,33 +803,73 @@ export const SENSOR_PLACEHOLDERS: Record<RehabType, SensorStatus[]> = {
 export const MOCK_EXERCISES: Exercise[] = ALL_EXERCISES;
 
 // ─── Skeleton133 ML label → Knee exercise ID mapping ──────────────────────────
-// ⚠️ KNOWN BROKEN — DO NOT TRUST THE "MATCHES TARGET" CHECK.
+// REHAB24-6 exercise labels and their visual-similarity knee equivalents:
+//   Ex1: arm rotation / abduction   — no knee equivalent, omitted
+//   Ex2: arm raise overhead         — no knee equivalent, omitted
+//   Ex3: squat                      → Mini Squats (bilateral knee-bend)
+//   Ex4: single-leg raise           → Straight Leg Raise (leg lifted to ~45°)
+//   Ex5: single-leg lunge           → Terminal Knee Extension (single-leg, knee extension)
+//   Ex6: step-up / step-out         → Step-Ups (exact movement match)
 //
-// The skeleton133 model is trained on REHAB24-6 (dataML/133/), whose Ex1..Ex6
-// labels correspond to:
-//     Ex1: arm rotation / abduction
-//     Ex2: arm raise overhead
-//     Ex3: squat
-//     Ex4: single-leg raise
-//     Ex5: single-leg lunge
-//     Ex6: step-up / step-out
-// (confirmed by reading dataML/133/Segmentation.csv `exercise_subtype` column).
-//
-// These are NOT the clinical knee exercises we prescribe (Quad Sets, Straight
-// Leg Raise, Heel Slides, …). The "Matching target exercise" badge that this
-// mapping powers has been hidden in the coached-session UI for that reason —
-// see RehabSession.tsx. Fixing it properly requires either retraining a model
-// on our exercise set OR redesigning the prescribed exercise list to align
-// with what the model already knows.
+// Exercises with no model label (Quad Sets, Heel Slides) resolve to undefined
+// in KNEE_EXERCISE_ID_TO_ML_LABEL → targetMlLabel = null in RehabSession →
+// the exercise-recognition badge is hidden for those sessions.
 export const KNEE_ML_LABEL_TO_EXERCISE_ID: Record<string, string> = {
-  Ex1: 'knee-ex-1', // Quad Sets       — model actually sees: arm rotation
-  Ex2: 'knee-ex-2', // Straight Leg    — model actually sees: arm raise
-  Ex3: 'knee-ex-3', // Heel Slides     — model actually sees: squat
-  Ex4: 'knee-ex-4', // Mini Squats     — model actually sees: single-leg raise
-  Ex5: 'knee-ex-5', // Terminal Knee   — model actually sees: single-leg lunge
-  Ex6: 'knee-ex-6', // Step-Ups        — model actually sees: step-up (only one that matches)
+  Ex3: 'knee-ex-4', // squat            → Mini Squats (0–45°)
+  Ex4: 'knee-ex-2', // single-leg raise → Straight Leg Raise
+  Ex5: 'knee-ex-5', // single-leg lunge → Terminal Knee Extension
+  Ex6: 'knee-ex-6', // step-up          → Step-Ups
 };
 
-export const KNEE_EXERCISE_ID_TO_ML_LABEL: Record<string, string> = Object.fromEntries(
-  Object.entries(KNEE_ML_LABEL_TO_EXERCISE_ID).map(([k, v]) => [v, k])
-);
+export const KNEE_EXERCISE_ID_TO_ML_LABEL: Record<string, string> = {
+  ...Object.fromEntries(Object.entries(KNEE_ML_LABEL_TO_EXERCISE_ID).map(([k, v]) => [v, k])),
+  'knee-ex-8': 'Ex5', // Lateral Lunge    → single-leg lunge label
+  'knee-ex-9': 'Ex4', // Single-Leg RDL   → single-leg raise label
+  // knee-ex-7 (Wall Sit) — isometric hold, no REHAB24-6 equivalent
+};
+
+// ─── Skeleton133 ML label → Leg exercise ID mapping ───────────────────────────
+// REHAB24-6 label → leg exercise visual-similarity mapping:
+//   Ex1: arm rotation     — no leg equivalent, omitted
+//   Ex2: arm raise        — no leg equivalent, omitted
+//   Ex3: squat            → Lateral Band Walk (constant partial-squat stance)
+//   Ex4: single-leg raise → Single-Leg Balance (single-leg stance with raised leg)
+//   Ex5: single-leg lunge — no direct equivalent, omitted
+//   Ex6: step-up/step-out → Forward Step-Up with Hip Hinge (step-up motion)
+//
+// Exercises without a model label (Calf Raises, Hip Abduction, Hamstring Curl)
+// are lying-down or ankle-only movements the skeleton model was not trained on.
+export const LEG_ML_LABEL_TO_EXERCISE_ID: Record<string, string> = {
+  Ex3: 'leg-ex-6', // squat            → Lateral Band Walk
+  Ex4: 'leg-ex-5', // single-leg raise → Single-Leg Balance
+  Ex6: 'leg-ex-4', // step-up          → Forward Step-Up with Hip Hinge
+};
+
+export const LEG_EXERCISE_ID_TO_ML_LABEL: Record<string, string> = {
+  ...Object.fromEntries(Object.entries(LEG_ML_LABEL_TO_EXERCISE_ID).map(([k, v]) => [v, k])),
+  'leg-ex-10': 'Ex4', // Single-Leg RDL   → single-leg raise label
+  'leg-ex-11': 'Ex5', // Walking Lunges   → single-leg lunge label
+  'leg-ex-12': 'Ex6', // Lateral Step-Down → step-up/step-out label
+  // leg-ex-7/8/9 — ankle/supine/prone exercises, no skeleton model match
+};
+
+// ─── Skeleton133 ML label → Elbow exercise ID mapping ─────────────────────────
+// REHAB24-6 label → elbow exercise visual-similarity mapping:
+//   Ex1: arm rotation/abduction → Bicep Curl (arm curling up from the side)
+//   Ex2: arm raise overhead     → Tricep Overhead Extension (arms above head)
+//   Ex3–Ex6: lower-body/step exercises — no elbow equivalent, omitted
+//
+// Wrist, forearm-rotation, and grip exercises (ex-1, ex-2, ex-3, ex-6) are
+// below skeleton resolution — no reliable whole-body label exists for them.
+export const ELBOW_ML_LABEL_TO_EXERCISE_ID: Record<string, string> = {
+  Ex1: 'elbow-ex-4', // arm rotation/abduction → Bicep Curl
+  Ex2: 'elbow-ex-5', // arm raise overhead     → Tricep Overhead Extension
+};
+
+export const ELBOW_EXERCISE_ID_TO_ML_LABEL: Record<string, string> = {
+  ...Object.fromEntries(Object.entries(ELBOW_ML_LABEL_TO_EXERCISE_ID).map(([k, v]) => [v, k])),
+  'elbow-ex-10': 'Ex1', // Resistance Band Curl      → arm rotation/bicep label
+  'elbow-ex-11': 'Ex2', // Tricep Pushdown Band      → arm raise/tricep label
+  // elbow-ex-7/8/9 — pendulum/stretch/isometric, no full-body skeleton match
+  // elbow-ex-12 (Eccentric Wrist Extension) — wrist-only, below skeleton resolution
+};

@@ -15,32 +15,32 @@ import { motion } from 'motion/react';
 
 const integrations = [
   {
-    title: "IMU Sensor Hub",
-    type: "Wearable Hardware",
-    status: "Upcoming",
-    desc: "Connection for high-fidelity IMU sensors for precise joint angle measurements (beyond camera visibility).",
-    icon: Database
-  },
-  {
     title: "MediaPipe Pose Engine",
     type: "WebML Framework",
-    status: "In Development",
-    desc: "Browser-based movement analysis to track 33 body landmarks in real-time without specialized hardware.",
+    status: "Active",
+    desc: "Browser-based real-time pose estimation tracking 33 body landmarks without specialized hardware. Powers live joint angle measurement and skeleton overlay in coached sessions.",
     icon: Camera
   },
   {
-    title: "GaitML v2.0",
-    type: "ML Model",
-    status: "Testing",
-    desc: "Specialized model for walking/gait analysis to identify asymmetries and pressure distributions.",
-    icon: CloudLightning
+    title: "Movement Pattern Matching",
+    type: "ML Pipeline",
+    status: "Active",
+    desc: "Skeleton data is streamed to a FastAPI backend running a movement quality classifier. The model signals whether movement is well-controlled and matches a target motion archetype. Trained on general exercise data; not clinically validated for specific rehab protocols.",
+    icon: Zap
   },
   {
-    title: "Exercise Recognition",
-    type: "Smart Logic",
-    status: "Next Wave",
-    desc: "Autonomous exercise detection and set-counting using temporal neural networks.",
-    icon: Zap
+    title: "IMU Sensor Hub",
+    type: "Wearable Hardware",
+    status: "Upcoming",
+    desc: "BLE connection for wearable IMU sensors providing precise joint angle measurements independent of camera line-of-sight. Demo mode available for evaluation.",
+    icon: Database
+  },
+  {
+    title: "GaitML — Gait Analysis",
+    type: "ML Model",
+    status: "Planned",
+    desc: "Specialized model for walking and gait analysis to detect asymmetries and loading patterns. Requires IMU sensor integration to be completed first.",
+    icon: CloudLightning
   }
 ];
 
@@ -49,11 +49,11 @@ export function IntegrationPage() {
     <div className="space-y-12 pb-24">
       <div className="max-w-3xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-900 text-white rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">
-           <Cpu size={12} className="text-blue-400" /> Future Roadmap
+           <Cpu size={12} className="text-blue-400" /> Platform Architecture
         </div>
-        <h1 className="text-5xl font-extrabold text-slate-900 tracking-tight leading-none mb-6">Cutting-Edge <span className="text-blue-600">Integrations</span>.</h1>
+        <h1 className="text-5xl font-extrabold text-slate-900 tracking-tight leading-none mb-6">AI &amp; Sensor <span className="text-blue-600">Integration</span>.</h1>
         <p className="text-xl text-slate-500 font-medium leading-relaxed">
-          The RehabSmart platform is architected to scale. Soon, these modules will connect directly to the patient experience to provide clinical-grade data.
+          Camera-based pose estimation and movement quality analysis are live in coached sessions. IMU sensor fusion and gait analysis are the next integration milestones.
         </p>
       </div>
 
