@@ -46,3 +46,33 @@ desktop.ini
 # Claude Code local settings (machine-specific permissions, not project config)
 # Note: CLAUDE.md is intentionally tracked — it contains project instructions.
 .claude/
+
+# ── Documents, reports & screenshots (not needed in the repo) ────────────────
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+~$*
+RehabSmart_Report.txt
+screenshot/
+screenshots/
+
+# Root-level images only (app images in public/ and src/ stay tracked)
+/*.png
+/*.jpg
+/*.jpeg
+/*.gif
+/*.webp
+
+# ── Misc local artifacts ──────────────────────────────────────────────────────
+build.log
+*.tsbuildinfo
+.vite/
+.firebase/
+firebase-debug.log*
+.vscode/
+.idea/
+*.zip
